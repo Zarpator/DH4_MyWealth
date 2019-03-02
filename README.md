@@ -4,7 +4,7 @@ MyWealth
 Kurzbeschreibung
 ----------------
 
-Die MyWealth Webapp dient allen Menschen dazu, ihren Reichtum in Form von Sachanlagen besser zu überblicken. Mit dieser Anwendung wird es möglich sein, seine Immobilien, seinen Fuhrpark oder den Marktwert anderer hochpreisiger Sachanlagen persistent zu speichern und mithilfe eines Dashboards übersichtlich zu verwalten.
+Die MyWealth Webapp dient allen Menschen dazu, ihren Reichtum in Form von Sachanlagen besser zu überblicken. Mit dieser Anwendung wird es möglich sein, seine Immobilien, seine Luxusuhren, seinen Fuhrpark oder den Marktwert anderer hochpreisiger Sachanlagen persistent zu speichern und mithilfe eines Dashboards übersichtlich zu verwalten. 
 
 Verwendete Technologien
 -----------------------
@@ -34,7 +34,5 @@ Copyright
 Dieses Projekt ist lizenziert unter
 [_Creative Commons Namensnennung 4.0 International_](http://creativecommons.org/licenses/by/4.0/)
 
-© 2018 – 2019 Dennis Schulmeister-Zimolong <br/>
+© 2019 David Scheid, Jonas Strube, Tim Bayer <br/>
 
-E-Mail: [dhbw@windows3.de](mailto:dhbw@windows3.de) <br/>
-Webseite: https://www.wpvs.de

@@ -13,7 +13,7 @@ import dhbwka.wwi.vertsys.javaee.mywealth.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardContentProvider;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardSection;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardTile;
-import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
+import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.JtodoCategory;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.TaskStatus;
 import java.util.List;
 import javax.ejb.EJB;
@@ -46,9 +46,9 @@ public class DashboardContent implements DashboardContentProvider {
         sections.add(section);
 
         // Anschließend je Kategorie einen weiteren Abschnitt erzeugen
-        List<Category> categories = this.categoryBean.findAllSorted();
+        List<JtodoCategory> categories = this.categoryBean.findAllSorted();
 
-        for (Category category : categories) {
+        for (JtodoCategory category : categories) {
             section = this.createSection(category);
             sections.add(section);
         }
@@ -66,7 +66,7 @@ public class DashboardContent implements DashboardContentProvider {
      * @param category Aufgaben-Kategorie, für die Kacheln erzeugt werden sollen
      * @return Neue Dashboard-Rubrik mit den Kacheln
      */
-    private DashboardSection createSection(Category category) {
+    private DashboardSection createSection(JtodoCategory category) {
         // Neue Rubrik im Dashboard erzeugen
         DashboardSection section = new DashboardSection();
         String cssClass = "";
@@ -125,7 +125,7 @@ public class DashboardContent implements DashboardContentProvider {
      * @param icon
      * @return
      */
-    private DashboardTile createTile(Category category, TaskStatus status, String label, String cssClass, String icon) {
+    private DashboardTile createTile(JtodoCategory category, TaskStatus status, String label, String cssClass, String icon) {
         int amount = taskBean.search(null, category, status).size();
         String href = "/app/tasks/list/";
 

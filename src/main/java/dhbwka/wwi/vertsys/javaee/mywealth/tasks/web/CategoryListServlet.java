@@ -13,7 +13,7 @@ import dhbwka.wwi.vertsys.javaee.mywealth.common.web.FormValues;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
-import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
+import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.JtodoCategory;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Task;
 import java.io.IOException;
 import java.util.List;
@@ -94,7 +94,7 @@ public class CategoryListServlet extends HttpServlet {
         // Formulareingaben prüfen
         String name = request.getParameter("name");
 
-        Category category = new Category(name);
+        JtodoCategory category = new JtodoCategory(name);
         List<String> errors = this.validationBean.validate(category);
 
         // Neue Kategorie anlegen
@@ -136,7 +136,7 @@ public class CategoryListServlet extends HttpServlet {
         // Kategorien löschen
         for (String categoryId : categoryIds) {
             // Zu löschende Kategorie ermitteln
-            Category category;
+            JtodoCategory category;
 
             try {
                 category = this.categoryBean.findById(Long.parseLong(categoryId));

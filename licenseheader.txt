@@ -5,9 +5,6 @@ ${licensePrefix}Copyright © ${date?date?string("yyyy")} David Scheid
 ${licensePrefix}Copyright © ${date?date?string("yyyy")} Jonas Strube
 ${licensePrefix}Copyright © ${date?date?string("yyyy")} Tim Bayer
 ${licensePrefix}
-${licensePrefix}E-Mail: dhbw@windows3.de
-${licensePrefix}Webseite: https://www.wpvs.de/
-${licensePrefix}
 ${licensePrefix}Dieser Quellcode ist lizenziert unter einer
 ${licensePrefix}Creative Commons Namensnennung 4.0 International Lizenz.
 <#if licenseLast??>

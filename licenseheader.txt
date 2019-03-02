@@ -1,7 +1,9 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}Copyright © ${date?date?string("yyyy")} Dennis Schulmeister-Zimolong
+${licensePrefix}Copyright © ${date?date?string("yyyy")} David Scheid
+${licensePrefix}Copyright © ${date?date?string("yyyy")} Jonas Strube
+${licensePrefix}Copyright © ${date?date?string("yyyy")} Tim Bayer
 ${licensePrefix}
 ${licensePrefix}E-Mail: dhbw@windows3.de
 ${licensePrefix}Webseite: https://www.wpvs.de/

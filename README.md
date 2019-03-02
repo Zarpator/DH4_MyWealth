@@ -4,7 +4,7 @@ MyWealth
 Kurzbeschreibung
 ----------------
 
-Die MyWealth Webapp dient allen Menschen dazu, ihren Reichtum in Form von Sachanlagen besser zu überblicken. Mit dieser Anwendung wird es möglich sein, seine Immobilien, seinen Fuhrpark oder den Marktwert anderer hochpreisiger Sachanlagen persistent zu speichern und mithilfe eines Dashboards übersichtlich zu verwalten.
+Die MyWealth Webapp dient allen Menschen dazu, ihren Reichtum in Form von Sachanlagen besser zu überblicken. Mit dieser Anwendung wird es möglich sein, seine Immobilien, seine Luxusuhren, seinen Fuhrpark oder den Marktwert anderer hochpreisiger Sachanlagen persistent zu speichern und mithilfe eines Dashboards übersichtlich zu verwalten. 
 
 Verwendete Technologien
 -----------------------

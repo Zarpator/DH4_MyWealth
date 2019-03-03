@@ -37,8 +37,8 @@ public class PossessionListServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         
         // alle Possessions des Users auslesen
-        // TODO woher weiß ich wessen Users Besitztümer ich auslesen will? (momentan hardcoded)
-        List<Possession> possessions = possessionBean.findByUser("jonas");
+        String username = request.getUserPrincipal().getName();
+        List<Possession> possessions = possessionBean.findByUser(username);
         
         //Possessions an den Request anhängen
         request.setAttribute("possessions", possessions);

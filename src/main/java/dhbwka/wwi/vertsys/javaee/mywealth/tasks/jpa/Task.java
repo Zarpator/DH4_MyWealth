@@ -44,7 +44,7 @@ public class Task implements Serializable {
     private User owner;
 
     @ManyToOne
-    private JtodoCategory category;
+    private Category category;
 
     @Column(length = 50)
     @NotNull(message = "Die Bezeichnung darf nicht leer sein.")
@@ -69,7 +69,7 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(User owner, JtodoCategory category, String shortText, String longText, Date dueDate, Time dueTime) {
+    public Task(User owner, Category category, String shortText, String longText, Date dueDate, Time dueTime) {
         this.owner = owner;
         this.category = category;
         this.shortText = shortText;
@@ -96,11 +96,11 @@ public class Task implements Serializable {
         this.owner = owner;
     }
 
-    public JtodoCategory getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(JtodoCategory category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

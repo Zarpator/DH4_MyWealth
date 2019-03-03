@@ -10,7 +10,7 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.tasks.ejb;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.EntityBean;
-import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.JtodoCategory;
+import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Task;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.TaskStatus;
 import java.util.List;
@@ -54,7 +54,7 @@ public class TaskBean extends EntityBean<Task, Long> {
      * @param status Status (optional)
      * @return Liste mit den gefundenen Aufgaben
      */
-    public List<Task> search(String search, JtodoCategory category, TaskStatus status) {
+    public List<Task> search(String search, Category category, TaskStatus status) {
         // Hilfsobjekt zum Bauen des Query
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         

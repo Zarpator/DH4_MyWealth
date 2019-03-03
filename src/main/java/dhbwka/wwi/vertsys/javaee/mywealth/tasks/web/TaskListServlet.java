@@ -11,7 +11,7 @@ package dhbwka.wwi.vertsys.javaee.mywealth.tasks.web;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.ejb.CategoryBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.ejb.TaskBean;
-import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.JtodoCategory;
+import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Task;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.TaskStatus;
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class TaskListServlet extends HttpServlet {
         String searchStatus = request.getParameter("search_status");
 
         // Anzuzeigende Aufgaben suchen
-        JtodoCategory category = null;
+        Category category = null;
         TaskStatus status = null;
 
         if (searchCategory != null) {

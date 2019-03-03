@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
  * Kategorien, die den Aufgaben zugeordnet werden können.
  */
 @Entity
-public class JtodoCategory implements Serializable {
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,10 +45,10 @@ public class JtodoCategory implements Serializable {
     List<Task> tasks = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
-    public JtodoCategory() {
+    public Category() {
     }
 
-    public JtodoCategory(String name) {
+    public Category(String name) {
         this.name = name;
     }
     //</editor-fold>

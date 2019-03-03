@@ -10,7 +10,7 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.tasks.ejb;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.EntityBean;
-import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.JtodoCategory;
+import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -20,10 +20,10 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @RolesAllowed("app-user")
-public class CategoryBean extends EntityBean<JtodoCategory, Long> {
+public class CategoryBean extends EntityBean<Category, Long> {
 
     public CategoryBean() {
-        super(JtodoCategory.class);
+        super(Category.class);
     }
 
     /**
@@ -31,7 +31,7 @@ public class CategoryBean extends EntityBean<JtodoCategory, Long> {
      *
      * @return Liste mit allen Kategorien
      */
-    public List<JtodoCategory> findAllSorted() {
+    public List<Category> findAllSorted() {
         return this.em.createQuery("SELECT c FROM Category c ORDER BY c.name").getResultList();
     }
 }

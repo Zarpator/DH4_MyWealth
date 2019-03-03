@@ -12,6 +12,6 @@ package dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa;
  *
  * @author Tim Bayer
  */
-public class Category {
+public class Possessiontype {
     
 }

@@ -40,7 +40,7 @@ public class Possession {
 
     @ManyToOne
     @NotNull(message = "Das Besitztum muss einer Kategorie zugeordnet sein.")
-    private Category category;
+    private Possessiontype type;
 
     
     @NotNull(message = "Das Besitztum muss einen Wert haben.")
@@ -55,11 +55,11 @@ public class Possession {
     
     
 
-    public Possession(long id, User owner, String name, Category category, int valueInEuro, String comments) {
+    public Possession(long id, User owner, String name, Possessiontype type, int valueInEuro, String comments) {
         this.id = id;
         this.owner = owner;
         this.name = name;
-        this.category = category;
+        this.type = type;
         this.valueInEuro = valueInEuro;
         this.comments = comments;
     }
@@ -90,12 +90,12 @@ public class Possession {
         this.name = name;
     }
 
-    public Category getCategory() {
-        return category;
+    public Possessiontype getType() {
+        return type;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setType(Possessiontype type) {
+        this.type = type;
     }
 
     public int getValueInEuro() {

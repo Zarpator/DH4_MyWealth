@@ -36,12 +36,9 @@ public class PossessionListServlet extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         
-        // eine TestPossession hinzufügen zum Testen (bis das der User selbst im UI tun kann)
-        //Possession testPossession = new Possession(0, new User(), "SAP SE", new Category(), 12, "is cool");
-        //possessionBean.saveNew(testPossession);
-        
-        //alle Possessions des Users auslesen
-        List<Possession> possessions = possessionBean.findByUser("Jonas");
+        // alle Possessions des Users auslesen
+        // TODO woher weiß ich wessen Users Besitztümer ich auslesen will? (momentan hardcoded)
+        List<Possession> possessions = possessionBean.findByUser("jonas");
         
         //Possessions an den Request anhängen
         request.setAttribute("possessions", possessions);

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2019 David Scheid
- * Copyright © 2019 Jonas Strube
+ * Copyright © 2019 zarpator
  * Copyright © 2019 Tim Bayer
  * 
  * Dieser Quellcode ist lizenziert unter einer
@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Datenbankklasse für ein Besitztum des Nutzers
  *
- * @author Jonas Strube
+ * @author zarpator
  */
 @Entity
 @Table(name = "MYWEALTH_POSSESSION")

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2019 David Scheid
- * Copyright © 2019 Jonas Strube
+ * Copyright © 2019 zarpator
  * Copyright © 2019 Tim Bayer
  * 
  * Dieser Quellcode ist lizenziert unter einer
@@ -16,7 +16,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Jonas Strube
+ * @author zarpator
  */
 @Stateless
 @RolesAllowed("app-user")

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2019 David Scheid
- * Copyright © 2019 Jonas Strube
+ * Copyright © 2019 zarpator
  * Copyright © 2019 Tim Bayer
  * 
  * Dieser Quellcode ist lizenziert unter einer
@@ -8,12 +8,12 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardContentProvider;
-import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardSection;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Category;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet für die Auflistung der Possessions des Users.
- * @author D070381
+ * @author zarpator
  */
 @WebServlet(urlPatterns = {"/app/possessions/list/"})
 public class PossessionListServlet extends HttpServlet{
@@ -32,15 +32,21 @@ public class PossessionListServlet extends HttpServlet{
     @EJB
     private PossessionBean possessionBean;
     
-    @EJB
-    DashboardContentProvider taskContent;
-    
+    // wird aufgerufen wenn die Seite zum Ansehen der Possessions geladen wird
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{        
-        List<Possession> possessions = possessionBean.findByUser("jonas");
+    public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        
+        // eine TestPossession hinzufügen zum Testen (bis das der User selbst im UI tun kann)
+        //Possession testPossession = new Possession(0, new User(), "SAP SE", new Category(), 12, "is cool");
+        //possessionBean.saveNew(testPossession);
+        
+        //alle Possessions des Users auslesen
+        List<Possession> possessions = possessionBean.findByUser("Jonas");
+        
+        //Possessions an den Request anhängen
         request.setAttribute("possessions", possessions);
 
-        // Anfrage an die JSP weiterleiten
+        // Request an die JSP weiterleiten
         request.getRequestDispatcher("/WEB-INF/possessions/possession_list.jsp").forward(request, response);
     }
 }

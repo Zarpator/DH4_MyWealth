@@ -6,12 +6,12 @@
  * Dieser Quellcode ist lizenziert unter einer
  * Creative Commons Namensnennung 4.0 International Lizenz.
  */
-package dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa;
+package dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb;
 
 /**
  *
- * @author Tim Bayer
+ * @author D070381
  */
-public class Possessiontype {
+public class PossessionBean {
     
 }

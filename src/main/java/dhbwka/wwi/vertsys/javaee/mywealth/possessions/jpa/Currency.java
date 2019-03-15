@@ -34,6 +34,8 @@ private String name;
 @NotNull(message = "Die Währung muss einen Umrechnungsfaktor haben.")
 private double conversionRate;
 
+private String test;
+
 //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Currency() {
     }

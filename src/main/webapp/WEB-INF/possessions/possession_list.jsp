@@ -1,7 +1,7 @@
 <%-- 
     Document   : possessions_list
     Created on : Mar 3, 2019, 2:08:41 PM
-    Author     : zarpator
+    Author     : Jonas Strube
 
     Dieser Quellcode ist lizenziert unter einer
     Creative Commons Namensnennung 4.0 International Lizenz.

@@ -32,11 +32,4 @@ public class CurrencyBean extends EntityBean<Currency, Long>{
                             .getResultList();
     }
     
-    public Currency createNewCurrency(String name, double conversionRate) {
-        Currency currency = new Currency(name, conversionRate);
-        em.persist(currency);
-        return em.merge(currency);
-    }
-    
-    
 }

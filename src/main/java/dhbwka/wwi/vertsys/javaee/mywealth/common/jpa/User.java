@@ -9,6 +9,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.common.jpa;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Currency;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Task;
 import java.io.Serializable;
@@ -71,6 +72,9 @@ public class User implements Serializable {
     
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     List<Possession> possessions = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    List<Currency> currencies = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public User() {

@@ -26,6 +26,8 @@ import javax.validation.constraints.NotNull;
 public class Currency {
     
 @Id
+@GeneratedValue(strategy = GenerationType.TABLE, generator = "currency_ids")
+@TableGenerator(name = "currency_ids", initialValue = 0, allocationSize = 50)
 private long id;
 
 @NotNull(message = "Die Währung muss einen Namen haben.")
@@ -40,8 +42,7 @@ private double conversionRate;
     
     
 
-    public Currency(long id, String name, double conversionRate) {
-        this.id = id;
+    public Currency(String name, double conversionRate) {
         this.name = name;
         this.conversionRate = conversionRate;
     }

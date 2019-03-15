@@ -11,12 +11,14 @@ package dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,13 +27,15 @@ import javax.validation.constraints.Size;
  *
  * @author timba
  */
+@Entity
+@Table(name = "MYWEALTH_POSSESSIONTYPE")
 public class PossessionType {
      @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "possessionType_ids")
     @TableGenerator(name = "possessionType_ids", initialValue = 0, allocationSize = 50)
     private long id;
 
-    @Column(length = 30)
+    
     @NotNull(message = "Der Anlagetyp darf nicht leer sein.")
     private String name;
 

@@ -26,9 +26,10 @@ public class CurrencyBean extends EntityBean<Currency, Long>{
     }
     
     // TODO define order of the results (template is commented out)
-    public List<Currency> findAllCurrencies(){
-        return em.createQuery("SELECT e FROM Currency e" /**ORDER BY t.dueDate, t.dueTime"**/)
-                 .getResultList();
+    public List<Currency> findByUser(String username){
+        return em.createQuery("SELECT e FROM Currency e WHERE e.owner.username = :username" /**ORDER BY t.dueDate, t.dueTime"**/)
+                            .setParameter("username", username)
+                            .getResultList();
     }
     
     public Currency createNewCurrency(String name, double conversionRate) {

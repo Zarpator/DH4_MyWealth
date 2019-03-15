@@ -8,11 +8,8 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
-import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
-import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardContentProvider;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
-import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Category;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;

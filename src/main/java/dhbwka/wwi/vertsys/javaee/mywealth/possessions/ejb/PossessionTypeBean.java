@@ -10,17 +10,26 @@ package dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.EntityBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
+import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
+import java.util.List;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author timba
  */
+@Stateless
+@RolesAllowed("app-user")
 public class PossessionTypeBean extends EntityBean<PossessionType, Long> {
     
-    public PossessionTypeBean(Class<PossessionType> entityClass) {
-        super(entityClass);
+    public PossessionTypeBean() {
+        super(PossessionType.class);
     }
     
+     public List<PossessionType> findAllSorted() {
+        return this.em.createQuery("SELECT p FROM PossessionType p ORDER BY p.name").getResultList();
+    }
     
     
 }

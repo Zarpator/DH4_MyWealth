@@ -12,6 +12,7 @@ import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.FormValues;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Currency;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;

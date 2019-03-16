@@ -14,7 +14,14 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Neues Besitztum
+        <c:choose>
+            <c:when test="${edit}">
+                Besitztum bearbeiten
+            </c:when>
+            <c:otherwise>
+                Besitztum hinzufügen
+            </c:otherwise>
+        </c:choose>
     </jsp:attribute>
 
     <jsp:attribute name="head">

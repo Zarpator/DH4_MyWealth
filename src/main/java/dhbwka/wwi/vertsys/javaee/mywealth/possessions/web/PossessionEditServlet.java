@@ -9,6 +9,7 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -33,6 +34,17 @@ public class PossessionEditServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO implement call of website
         
+        // id handling test
+        String id = request.getPathInfo();
+        id = id.substring(1);
+        request.setAttribute("poss_id", id);
+
+        // TODO add possession_form to the request (like in taskeditservlet)
+        
+        // get Possession from id in request url
+        // Possession possession = this.getPossession(request);
+        // request.setAttribute("possession-form", possession_form);
+        
         request.getRequestDispatcher("/WEB-INF/possessions/possession_edit.jsp").forward(request, response);
     }
     
@@ -41,4 +53,28 @@ public class PossessionEditServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         //TODO implement form confirmation
     }    
+
+    private Possession getPossession(HttpServletRequest request) {
+        Possession possession = new Possession();
+        
+        String id = request.getPathInfo();
+        
+        if (id == null) {
+            id = "";
+        }
+        
+        id = id.substring(1);
+        
+        if (id.endsWith("/")) {
+            id = id.substring(0, id.length() - 1);
+        }
+        
+        try {
+            possession = this.possessionBean.findById(Long.parseLong(id));
+        } catch (NumberFormatException e){
+            // ID ist nicht vorhanden oder kann nicht in Long konvertiert werden
+        }
+        
+        return possession;
+    }
 }

@@ -29,6 +29,8 @@
     </jsp:attribute>
         
     <jsp:attribute name="content">
-        
+        <p>
+            ID ist: ${poss_id}
+        </p>
     </jsp:attribute>
 </template:base>

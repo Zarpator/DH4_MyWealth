@@ -55,8 +55,7 @@ public class Possession {
     
     
 
-    public Possession(long id, User owner, String name, PossessionType type, int valueInEuro, String comments) {
-        this.id = id;
+    public Possession(User owner, String name, PossessionType type, int valueInEuro, String comments) {
         this.owner = owner;
         this.name = name;
         this.type = type;

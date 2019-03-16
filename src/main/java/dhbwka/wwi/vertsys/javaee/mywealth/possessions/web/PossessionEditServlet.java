@@ -9,7 +9,9 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
+import java.io.IOException;
 import javax.ejb.EJB;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,13 +24,16 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = "/app/possessions/edit/*")
 public class PossessionEditServlet extends HttpServlet {
+    
     @EJB
-    PossessionBean possessionBean;
+    private PossessionBean possessionBean;
     
     // wird aufgerufen wenn die Seite zum Hinzufügen oder Bearbeiten von Possessions geladen wird
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO implement call of website
+        
+        request.getRequestDispatcher("/WEB-INF/possessions/possession_edit.jsp").forward(request, response);
     }
     
     // wird aufgerufen wenn auf der possession_edit.jsp ein Button zum Hinzufügen, Bearbeiten oder Löschen einer Possession geklickt wird

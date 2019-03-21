@@ -27,10 +27,65 @@
     <jsp:attribute name="head">
         <link rel="stylesheet" href="<c:url value="/css/possession_list.css"/>" />
     </jsp:attribute>
-        
+
     <jsp:attribute name="content">
-        <p>
-            ID ist: ${poss_id}
-        </p>
+        <form method="post" class="stacked">
+            <div class="column">
+                <%-- Eingabefelder --%>
+
+                <p>
+                    ID ist: ${poss_id}
+                </p>
+                <label for="task_owner">Name:</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
+                </div>
+
+                <label for="task_category">Anlagetyp:</label>
+                <div class="side-by-side">
+                    <select name="task_category">
+                        <option value="">Kein Typ</option>
+
+                        <c:forEach items="${categories}" var="category">
+                            <option value="${category.id}" ${task_form.values["task_category"][0] == category.id.toString() ? 'selected' : ''}>
+                                <c:out value="${category.name}" />
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                
+                <label for="task_owner">Wert:</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
+                </div>
+                
+                <label for="task_owner">Kommentar:</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
+                </div>
+
+                <%-- Button zum Abschicken --%>
+                <div class="side-by-side">
+                    <button class="icon-pencil" type="submit" name="action" value="save">
+                        Speichern
+                    </button>
+
+                    <c:if test="${edit}">
+                        <button class="icon-trash" type="submit" name="action" value="delete">
+                            Löschen
+                        </button>
+                    </c:if>
+                </div>
+            </div>
+
+            <%-- Fehlermeldungen --%>
+            <c:if test="${!empty task_form.errors}">
+                <ul class="errors">
+                    <c:forEach items="${task_form.errors}" var="error">
+                        <li>${error}</li>
+                        </c:forEach>
+                </ul>
+            </c:if>
+        </form>
     </jsp:attribute>
 </template:base>

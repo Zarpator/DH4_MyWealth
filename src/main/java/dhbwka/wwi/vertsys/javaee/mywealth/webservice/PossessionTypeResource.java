@@ -39,7 +39,7 @@ public class PossessionTypeResource {
     
     // <editor-fold defaultstate="collapsed" desc="Zugriff auf die Collection">
     /**
-     * GET /api/PossessionTypes/List/
+     * GET /api/PossessionTypes/
      * Auslesen einer Liste von Musikstücken.
      */
     @GET

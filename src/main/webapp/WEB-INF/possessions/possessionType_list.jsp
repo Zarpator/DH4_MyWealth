@@ -64,7 +64,7 @@
                     <div>
                         <div class="margin">
                             <c:forEach items="${possessiontypes}" var="possessiontype">
-                                <input type="checkbox" name="category" id="${'possessiontype-'.concat(possessiontype.id)}" value="${possessiontype.id}" />
+                                <input type="checkbox" name="possessiontype" id="${'possessiontype-'.concat(possessiontype.id)}" value="${possessiontype.id}" />
                                 <label for="${'possessiontype-'.concat(possessiontype.id)}">
                                     <c:out value="${possessiontype.name}"/>
                                 </label>

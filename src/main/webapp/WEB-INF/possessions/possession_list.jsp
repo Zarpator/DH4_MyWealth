@@ -22,7 +22,7 @@
     <jsp:attribute name="head">
         <link rel="stylesheet" href="<c:url value="/css/possession_list.css"/>" />
     </jsp:attribute>
-        
+
     <jsp:attribute name="content">
         <%-- Gefundene Besitztümer --%>
         <c:choose>
@@ -33,7 +33,7 @@
             </c:when>
             <c:otherwise>
                 <jsp:useBean id="utils" class="dhbwka.wwi.vertsys.javaee.mywealth.common.web.WebUtils"/>
-                
+
                 <table>
                     <thead>
                         <tr>
@@ -44,7 +44,7 @@
                     <c:forEach items="${possessions}" var="possession">
                         <tr>
                             <td>
-                                <a href="<c:url value="/app/possessions/possession/${possession.id}/"/>">
+                                <a href="<c:url value="/app/possessions/possession/${possession.id}"/>">
                                     <c:out value="${possession.name}"/>
                                 </a>
                             </td>
@@ -56,5 +56,12 @@
                 </table>
             </c:otherwise>
         </c:choose>
+
+        <%-- Feld zum Anlegen eines neuen Besitztums --%>
+        <div class="column margin">
+            <div>
+                <a href="<c:url value="/app/possessions/possession/new"/>">Besitz hinzufügen</a>
+            </div>
+        </div>
     </jsp:attribute>
 </template:base>

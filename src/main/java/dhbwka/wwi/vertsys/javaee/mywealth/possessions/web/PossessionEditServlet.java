@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jonas Strube
  */
 
-@WebServlet(urlPatterns = "/app/possessions/edit/*")
+@WebServlet(urlPatterns = "/app/possessions/possession/*")
 public class PossessionEditServlet extends HttpServlet {
     
     @EJB

@@ -31,19 +31,23 @@
     <jsp:attribute name="content">
         <form method="post" class="stacked">
             <div class="column">
+                <%-- CSRF-Token --%>
+                <input type="hidden" name="csrf_token" value="${csrf_token}">
+                
                 <%-- Eingabefelder --%>
 
                 <p>
                     ID ist: ${poss_id}
                 </p>
-                <label for="task_owner">Name:</label>
+                
+                <label for="poss_owner">Name:</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}">
+                    <input type="text" name="poss_owner" value="${task_form.values["task_owner"][0]}">
                 </div>
 
                 <label for="task_category">Anlagetyp:</label>
                 <div class="side-by-side">
-                    <select name="task_category">
+                    <select name="poss_type">
                         <option value="">Kein Typ</option>
 
                         <c:forEach items="${categories}" var="category">
@@ -54,14 +58,14 @@
                     </select>
                 </div>
 
-                <label for="task_owner">Wert:</label>
+                <label for="poss_value">Wert:</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}">
+                    <input type="text" name="poss_value" value="${task_form.values["task_owner"][0]}">
                 </div>
 
-                <label for="task_owner">Kommentar:</label>
+                <label for="poss_comments">Kommentar:</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}">
+                    <input type="text" name="poss_comments" value="${task_form.values["task_owner"][0]}">
                 </div>
 
                 <%-- Button zum Abschicken --%>

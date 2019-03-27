@@ -38,7 +38,7 @@
                 </p>
                 <label for="task_owner">Name:</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
+                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}">
                 </div>
 
                 <label for="task_category">Anlagetyp:</label>
@@ -53,15 +53,15 @@
                         </c:forEach>
                     </select>
                 </div>
-                
+
                 <label for="task_owner">Wert:</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
+                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}">
                 </div>
-                
+
                 <label for="task_owner">Kommentar:</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
+                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}">
                 </div>
 
                 <%-- Button zum Abschicken --%>

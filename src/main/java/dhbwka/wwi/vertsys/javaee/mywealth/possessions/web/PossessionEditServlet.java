@@ -51,6 +51,9 @@ public class PossessionEditServlet extends HttpServlet {
         String id = request.getPathInfo();
         id = id.substring(1);
         request.setAttribute("poss_id", id);
+        
+        request.setAttribute("poss_type", this.possessionTypeBean.findAllSorted());
+
 
         // TODO add possession_form to the request (like in taskeditservlet)
         
@@ -91,7 +94,8 @@ public class PossessionEditServlet extends HttpServlet {
         // Formulareingaben prüfen
         List<String> errors = new ArrayList<>();
 
-        String possOwner = request.getParameter("poss_owner");
+        
+        String possName = request.getParameter("poss_name");
         String possType = request.getParameter("poss_type");
         String possValue = request.getParameter("poss_value");
         String possComments = request.getParameter("poss_comments");
@@ -105,13 +109,17 @@ public class PossessionEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
+        
+        possession.setValueInEuro(Integer.parseInt(possValue));
 
+        possession.setName(possName);
         possession.setComments(possComments);
 
         this.validationBean.validate(possession, errors);
 
         // Datensatz speichern
-        if (errors.isEmpty()) {
+        //if (errors.isEmpty()) {
+        if (true){
             this.possessionBean.update(possession);
         }
 

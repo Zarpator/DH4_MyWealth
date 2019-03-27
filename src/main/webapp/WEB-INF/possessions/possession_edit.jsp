@@ -40,9 +40,9 @@
                     ID ist: ${poss_id}
                 </p>
                 
-                <label for="poss_owner">Name:</label>
+                <label for="poss_name">Name:</label>
                 <div class="side-by-side">
-                    <input type="text" name="poss_owner" value="${task_form.values["task_owner"][0]}">
+                    <input type="text" name="poss_name" value="${task_form.values["task_owner"][0]}">
                 </div>
 
                 <label for="task_category">Anlagetyp:</label>
@@ -50,9 +50,9 @@
                     <select name="poss_type">
                         <option value="">Kein Typ</option>
 
-                        <c:forEach items="${categories}" var="category">
-                            <option value="${category.id}" ${task_form.values["task_category"][0] == category.id.toString() ? 'selected' : ''}>
-                                <c:out value="${category.name}" />
+                        <c:forEach items="${poss_types}" var="type">
+                            <option value="${type.id}">
+                                <c:out value="${type.name}" />
                             </option>
                         </c:forEach>
                     </select>

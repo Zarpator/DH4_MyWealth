@@ -46,9 +46,14 @@
                      </c:forEach>
                 </select>
                 
+                <br/>
+                
                 <button type="submit" name="action" value="create" class="icon-pencil">
                     Anlegen
                 </button>
+                
+                <br/>
+                <br/>
             </div>
              
 

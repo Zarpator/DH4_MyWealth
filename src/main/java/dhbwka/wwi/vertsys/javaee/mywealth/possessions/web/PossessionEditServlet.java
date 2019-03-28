@@ -52,7 +52,7 @@ public class PossessionEditServlet extends HttpServlet {
         id = id.substring(1);
         request.setAttribute("poss_id", id);
         
-        request.setAttribute("poss_type", this.possessionTypeBean.findAllSorted());
+        request.setAttribute("poss_types", this.possessionTypeBean.findAllSorted());
 
 
         // TODO add possession_form to the request (like in taskeditservlet)

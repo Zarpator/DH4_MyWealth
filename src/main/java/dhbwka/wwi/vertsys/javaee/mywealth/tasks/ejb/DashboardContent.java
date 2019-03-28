@@ -13,6 +13,8 @@ import dhbwka.wwi.vertsys.javaee.mywealth.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardContentProvider;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardSection;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardTile;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.TaskStatus;
 import java.util.List;
@@ -27,6 +29,9 @@ public class DashboardContent implements DashboardContentProvider {
 
     @EJB
     private CategoryBean categoryBean;
+    
+    @EJB
+    private PossessionTypeBean possessionTypeBean;
 
     @EJB
     private TaskBean taskBean;
@@ -42,16 +47,8 @@ public class DashboardContent implements DashboardContentProvider {
     public void createDashboardContent(List<DashboardSection> sections) {
         // Zunächst einen Abschnitt mit einer Gesamtübersicht aller Aufgaben
         // in allen Kategorien erzeugen
-        DashboardSection section = this.createSection(null);
+        DashboardSection section = this.createSection();
         sections.add(section);
-
-        // Anschließend je Kategorie einen weiteren Abschnitt erzeugen
-        List<Category> categories = this.categoryBean.findAllSorted();
-
-        for (Category category : categories) {
-            section = this.createSection(category);
-            sections.add(section);
-        }
     }
 
     /**
@@ -66,28 +63,27 @@ public class DashboardContent implements DashboardContentProvider {
      * @param category Aufgaben-Kategorie, für die Kacheln erzeugt werden sollen
      * @return Neue Dashboard-Rubrik mit den Kacheln
      */
-    private DashboardSection createSection(Category category) {
+    private DashboardSection createSection() {
         // Neue Rubrik im Dashboard erzeugen
         DashboardSection section = new DashboardSection();
         String cssClass = "";
 
-        if (category != null) {
-            section.setLabel(category.getName());
-        } else {
-            section.setLabel("Alle Kategorien");
-            cssClass = "overview";
-        }
+        section.setLabel("Was möchten sie anschauen?");
+       
+         cssClass = "overview";
+       
 
         // Eine Kachel für alle Aufgaben in dieser Rubrik erzeugen
-        DashboardTile tile = this.createTile(category, null, "Alle", cssClass + " status-all", "calendar");
+        DashboardTile tile = this.createTile(new PossessionType(), "Alle", cssClass + " status-all", "calendar");
         section.getTiles().add(tile);
-
+        
+        List<PossessionType> possessionTypes = this.possessionTypeBean.findAllSorted();
         // Ja Aufgabenstatus eine weitere Kachel erzeugen
-        for (TaskStatus status : TaskStatus.values()) {
-            String cssClass1 = cssClass + " status-" + status.toString().toLowerCase();
-            String icon = "";
+        for (PossessionType possessionType2 : possessionTypes) {
+            String cssClass1 = cssClass + " status-open";
+            String icon = "rocket";
 
-            switch (status) {
+         /*   switch (status) {
                 case OPEN:
                     icon = "doc-text";
                     break;
@@ -103,9 +99,9 @@ public class DashboardContent implements DashboardContentProvider {
                 case POSTPONED:
                     icon = "bell-off-empty";
                     break;
-            }
+            }*/
 
-            tile = this.createTile(category, status, status.getLabel(), cssClass1, icon);
+            tile = this.createTile(possessionType2, possessionType2.getName(), cssClass1, icon);
             section.getTiles().add(tile);
         }
 
@@ -125,17 +121,15 @@ public class DashboardContent implements DashboardContentProvider {
      * @param icon
      * @return
      */
-    private DashboardTile createTile(Category category, TaskStatus status, String label, String cssClass, String icon) {
-        int amount = taskBean.search(null, category, status).size();
-        String href = "/app/tasks/list/";
+    private DashboardTile createTile(PossessionType possessionType, String label, String cssClass, String icon) {
+        int amount = possessionTypeBean.findAll().size();
+        String href = "/app/possessions/list/";
 
-        if (category != null) {
-            href = WebUtils.addQueryParameter(href, "search_category", "" + category.getId());
+        if (possessionType != null) {
+            href = WebUtils.addQueryParameter(href, "search_possessionType", "" + possessionType.getId());
         }
 
-        if (status != null) {
-            href = WebUtils.addQueryParameter(href, "search_status", status.toString());
-        }
+       
 
         DashboardTile tile = new DashboardTile();
         tile.setLabel(label);

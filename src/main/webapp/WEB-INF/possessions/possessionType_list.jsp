@@ -38,11 +38,19 @@
             <div class="column margin">
                 <label for="j_username">Neuer Anlagetyp:</label>
                 <input type="text" name="name" value="${possessiontype_form.values["name"][0]}">
-
+                
+                <label for="j_currency">Standardwährung:</label>
+                <select name="currencySelection">
+                     <c:forEach items="${currencies}" var="currency">
+                          <option value="${currency.id}">${currency.name}</option>
+                     </c:forEach>
+                </select>
+                
                 <button type="submit" name="action" value="create" class="icon-pencil">
                     Anlegen
                 </button>
             </div>
+             
 
             <%-- Fehlermeldungen --%>
             <c:if test="${!empty possessiontype_form.errors}">
@@ -63,13 +71,37 @@
                 <c:otherwise>
                     <div>
                         <div class="margin">
+                            <table>
+                                <col width="40">
+                                <col width="200">
+                                <col width="150">
+                                <tr>
+                                    <th></th>
+                                    <th>Anlagentyp</th>
+                                    <th>Standardwährung</th>                             
+                                </tr>
+                                                               
+                            
                             <c:forEach items="${possessiontypes}" var="possessiontype">
-                                <input type="checkbox" name="possessiontype" id="${'possessiontype-'.concat(possessiontype.id)}" value="${possessiontype.id}" />
-                                <label for="${'possessiontype-'.concat(possessiontype.id)}">
-                                    <c:out value="${possessiontype.name}"/>
-                                </label>
-                                <br />
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="possessiontype" id="${'possessiontype-'.concat(possessiontype.id)}" value="${possessiontype.id}" />
+                                    </td>
+                                    <td>
+                                       <label for="${'possessiontype-'.concat(possessiontype.id)}">
+                                           <c:out value="${possessiontype.name}"/>
+                                       </label> 
+                                    </td>
+                                    <td>
+                                        <label for="${'possessiontype-'.concat(possessiontype.id)}">
+                                            <c:out value="${possessiontype.currency.name}"/>
+                                        </label>
+                                    </td>                         
+                                   
+                                </tr>
                             </c:forEach>
+                                
+                           </table>
                         </div>
 
                         <button type="submit" name="action" value="delete" class="icon-trash">

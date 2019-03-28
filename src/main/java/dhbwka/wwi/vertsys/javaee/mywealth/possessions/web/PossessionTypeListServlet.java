@@ -10,6 +10,7 @@ package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.FormValues;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.CurrencyBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Currency;
@@ -44,6 +45,9 @@ public class PossessionTypeListServlet extends HttpServlet {
 
     @EJB
     ValidationBean validationBean;
+    
+    @EJB
+    CurrencyBean currencyBean;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,6 +55,7 @@ public class PossessionTypeListServlet extends HttpServlet {
 
         // Alle vorhandenen Anlagetypen ermitteln
         request.setAttribute("possessiontypes", this.possessiontypeBean.findAllSorted());
+        request.setAttribute("currencies", this.currencyBean.findAll());
 
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/possessions/possessionType_list.jsp");
@@ -95,8 +100,11 @@ public class PossessionTypeListServlet extends HttpServlet {
 
         // Formulareingaben prüfen
         String name = request.getParameter("name");
+        String currencyName = request.getParameter("currencySelection");
+        
+        Currency currency = this.currencyBean.findById(Long.parseLong(currencyName));
 
-        PossessionType possessionType = new PossessionType(name);
+        PossessionType possessionType = new PossessionType(name, currency);
         List<String> errors = this.validationBean.validate(possessionType);
 
         // Neue Kategorie anlegen

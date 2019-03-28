@@ -126,7 +126,7 @@ public class DashboardContent implements DashboardContentProvider {
         String href = "/app/possessions/list/";
 
         if (possessionType != null) {
-            href = WebUtils.addQueryParameter(href, "search_category", "" + possessionType.getId());
+            href = WebUtils.addQueryParameter(href, "search_possessionType", "" + possessionType.getId());
         }
 
        

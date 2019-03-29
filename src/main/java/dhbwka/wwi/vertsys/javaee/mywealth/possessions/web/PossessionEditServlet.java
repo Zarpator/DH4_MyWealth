@@ -8,6 +8,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
@@ -29,48 +30,40 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet zum Hinzufügen, Löschen und Bearbeiten von Possessions
+ *
  * @author Jonas Strube
  */
-
 @WebServlet(urlPatterns = "/app/possessions/possession/*")
 public class PossessionEditServlet extends HttpServlet {
-    
+
     @EJB
     private PossessionBean possessionBean;
-    
+
     @EJB
     private PossessionTypeBean possessionTypeBean;
-    
+
     @EJB
     private UserBean userBean;
-    
+
     @EJB
     private ValidationBean validationBean;
-            
+
     // wird aufgerufen wenn die Seite zum Hinzufügen oder Bearbeiten von Possessions geladen wird
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO implement call of website
-        
-        // id handling test
-        String id = request.getPathInfo();
-        id = id.substring(1);
-        request.setAttribute("poss_id", id);
-        
-        request.setAttribute("poss_types", this.possessionTypeBean.findAllSorted());
-
 
         // TODO add possession_form to the request (like in taskeditservlet)
-        
         // get Possession from id in request url
-        // Possession possession = this.getPossession(request);
-        // request.setAttribute("possession-form", possession_form);
-        
+        Possession possession = this.getPossession(request);
+
+        request.setAttribute("possession", possession);
+        request.setAttribute("poss_types", this.possessionTypeBean.findAllSorted());
+
         request.getRequestDispatcher("/WEB-INF/possessions/possession_edit.jsp").forward(request, response);
     }
-    
+
     // wird aufgerufen wenn auf der possession_edit.jsp ein Button zum Hinzufügen, Bearbeiten oder Löschen einer Possession geklickt wird
-    
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -92,13 +85,13 @@ public class PossessionEditServlet extends HttpServlet {
                 break;
         }
     }
-    
+
     private void saveTask(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Formulareingaben prüfen
         List<String> errors = new ArrayList<>();
-        
+
         String possName = request.getParameter("poss_name");
         String possType = request.getParameter("poss_type");
         String possValue = request.getParameter("poss_value");
@@ -113,13 +106,13 @@ public class PossessionEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
-        
+
         if (possValue != null || !possValue.isEmpty()) {
             possession.setValueInEuro(Integer.parseInt(possValue));
         } else {
             errors.add("Das Besitztum muss einen Wert haben.");
         }
-        
+
         possession.setName(possName);
         possession.setComments(possComments);
 
@@ -150,25 +143,27 @@ public class PossessionEditServlet extends HttpServlet {
     private Possession getPossession(HttpServletRequest request) {
         Possession possession = new Possession();
         possession.setOwner(this.userBean.getCurrentUser());
-        
+
         String id = request.getPathInfo();
-        
+
         if (id == null) {
             id = "";
         }
-        
+
         id = id.substring(1);
-        
+
         if (id.endsWith("/")) {
             id = id.substring(0, id.length() - 1);
         }
-        
+
         try {
             possession = this.possessionBean.findById(Long.parseLong(id));
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             // ID ist nicht vorhanden oder kann nicht in Long konvertiert werden
+            // Tritt ein wenn neue Possession hinzugefügt wird
+            // Denn dann wird keine ID sondern "new" mitgegeben
         }
-        
+
         return possession;
     }
 }

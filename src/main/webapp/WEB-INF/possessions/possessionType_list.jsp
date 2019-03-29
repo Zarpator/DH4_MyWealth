@@ -16,7 +16,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/category_list.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/possessionType_view.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -74,18 +74,17 @@
                     </p>
                 </c:when>
                 <c:otherwise>
+                    
                     <div>
-                        <div class="margin">
+                        <div>
                             <table>
-                                <col width="40">
-                                <col width="200">
-                                <col width="150">
+                                <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Anlagentyp</th>
-                                    <th>Standardwährung</th>                             
+                                    <th class="tableHeader">Anlagentyp</th>
+                                    <th class="tableHeader">Standardwährung</th>                             
                                 </tr>
-                                                               
+                                </thead>                              
                             
                             <c:forEach items="${possessiontypes}" var="possessiontype">
                                 <tr>
@@ -108,6 +107,7 @@
                                 
                            </table>
                         </div>
+                        <br/>
 
                         <button type="submit" name="action" value="delete" class="icon-trash">
                             Markierte löschen

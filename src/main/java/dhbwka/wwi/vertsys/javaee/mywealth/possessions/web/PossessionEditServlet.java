@@ -8,7 +8,9 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.FormValues;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
@@ -38,6 +40,9 @@ public class PossessionEditServlet extends HttpServlet {
     
     @EJB
     private PossessionTypeBean possessionTypeBean;
+    
+    @EJB
+    private UserBean userBean;
     
     @EJB
     private ValidationBean validationBean;
@@ -93,7 +98,6 @@ public class PossessionEditServlet extends HttpServlet {
 
         // Formulareingaben prüfen
         List<String> errors = new ArrayList<>();
-
         
         String possName = request.getParameter("poss_name");
         String possType = request.getParameter("poss_type");
@@ -110,23 +114,26 @@ public class PossessionEditServlet extends HttpServlet {
             }
         }
         
-        possession.setValueInEuro(Integer.parseInt(possValue));
-
+        if (possValue != null || !possValue.isEmpty()) {
+            possession.setValueInEuro(Integer.parseInt(possValue));
+        } else {
+            errors.add("Das Besitztum muss einen Wert haben.");
+        }
+        
         possession.setName(possName);
         possession.setComments(possComments);
 
         this.validationBean.validate(possession, errors);
 
         // Datensatz speichern
-        //if (errors.isEmpty()) {
-        if (true){
+        if (errors.isEmpty()) {
             this.possessionBean.update(possession);
         }
 
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
-            response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/list/"));
+            response.sendRedirect(WebUtils.appUrl(request, "/app/possessions/list/"));
         } else {
             // Fehler: Formuler erneut anzeigen
             FormValues formValues = new FormValues();
@@ -142,6 +149,7 @@ public class PossessionEditServlet extends HttpServlet {
 
     private Possession getPossession(HttpServletRequest request) {
         Possession possession = new Possession();
+        possession.setOwner(this.userBean.getCurrentUser());
         
         String id = request.getPathInfo();
         

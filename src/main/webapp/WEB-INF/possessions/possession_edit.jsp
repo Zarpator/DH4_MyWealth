@@ -34,12 +34,7 @@
                 <%-- CSRF-Token --%>
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
                 
-                <%-- Eingabefelder --%>
-
-                <p>
-                    ID ist: ${poss_id}
-                </p>
-                
+                <%-- Eingabefelder --%>                
                 <label for="poss_name">Name:</label>
                 <div class="side-by-side">
                     <input type="text" name="poss_name" value="${task_form.values["task_owner"][0]}">

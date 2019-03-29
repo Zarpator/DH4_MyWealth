@@ -34,10 +34,14 @@
                 <%-- CSRF-Token --%>
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
                 
-                <%-- Eingabefelder --%>                
+                <%-- Eingabefelder --%>
+                <p>
+                    ID ist: ${possession.getComments()}
+                </p>
+                
                 <label for="poss_name">Name:</label>
                 <div class="side-by-side">
-                    <input type="text" name="poss_name" value="${task_form.values["task_owner"][0]}">
+                    <input type="text" name="poss_name" value="${possession.getName()}">
                 </div>
 
                 <label for="task_category">Anlagetyp:</label>
@@ -55,12 +59,12 @@
 
                 <label for="poss_value">Wert:</label>
                 <div class="side-by-side">
-                    <input type="text" name="poss_value" value="${task_form.values["task_owner"][0]}">
+                    <input type="text" name="poss_value" value="${possession.getValueInEuro()}">
                 </div>
 
-                <label for="poss_comments">Kommentar:</label>
+                <label for="poss_comments">Kommentare:</label>
                 <div class="side-by-side">
-                    <input type="text" name="poss_comments" value="${task_form.values["task_owner"][0]}">
+                    <input type="text" name="poss_comments" value="${possession.getComments()}">
                 </div>
 
                 <%-- Button zum Abschicken --%>

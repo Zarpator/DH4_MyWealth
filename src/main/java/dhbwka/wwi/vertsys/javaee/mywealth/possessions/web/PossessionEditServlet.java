@@ -55,7 +55,11 @@ public class PossessionEditServlet extends HttpServlet {
         // id handling test
         String id = request.getPathInfo();
         id = id.substring(1);
-        request.setAttribute("poss_id", id);
+        
+        Possession possession = this.possessionBean.findById(Long.parseLong(id));
+        
+        request.setAttribute("possession", possession);
+        
         
         request.setAttribute("poss_types", this.possessionTypeBean.findAllSorted());
 

@@ -33,12 +33,12 @@
             <div class="column">
                 <%-- CSRF-Token --%>
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
-                
+
                 <%-- Eingabefelder --%>
                 <p>
                     ID ist: ${possession.getComments()}
                 </p>
-                
+
                 <label for="poss_name">Name:</label>
                 <div class="side-by-side">
                     <input type="text" name="poss_name" value="${possession.getName()}">
@@ -50,7 +50,7 @@
                         <option value="">Kein Typ</option>
 
                         <c:forEach items="${poss_types}" var="type">
-                            <option value="${type.id}">
+                            <option value="${type.id}" ${possession.getType().id.toString() == type.id.toString() ? 'selected' : ''}>
                                 <c:out value="${type.name}" />
                             </option>
                         </c:forEach>

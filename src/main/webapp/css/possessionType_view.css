@@ -20,11 +20,15 @@ td, th {
     vertical-align: baseline;
 }
 
-.tableHeader {
+.headerTable {
     padding-bottom: 1em;
+    font-weight: bold;
+}
+.headerForm {
+    font-weight: bold;
 }
 
 form label {
-    font-weight: normal !important;
+    font-weight: normal;
 }
 

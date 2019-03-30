@@ -36,10 +36,10 @@
 
             <%-- Feld zum Anlegen eines neuen Anlagetyps --%>
             <div class="column margin">
-                <label for="j_username">Neuer Anlagetyp:</label>
+                <label class="headerForm" for="j_username">Neuer Anlagetyp:</label>
                 <input type="text" name="name" value="${possessiontype_form.values["name"][0]}">
                 
-                <label for="j_currency">Standardwährung:</label>
+                <label class="headerForm" for="j_currency">Standardwährung:</label>
                 <select name="currencySelection">
                      <c:forEach items="${currencies}" var="currency">
                           <option value="${currency.id}">${currency.name}</option>
@@ -52,11 +52,10 @@
                     Anlegen
                 </button>
                 
-                <br/>
-                <br/>
             </div>
              
-
+                 <br/>
+                 
             <%-- Fehlermeldungen --%>
             <c:if test="${!empty possessiontype_form.errors}">
                 <ul class="errors margin">
@@ -65,6 +64,8 @@
                         </c:forEach>
                 </ul>
             </c:if>
+            
+             <br/>
 
             <%-- Vorhandene Anlagetypen --%>
             <c:choose>
@@ -81,8 +82,8 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th class="tableHeader">Anlagentyp</th>
-                                    <th class="tableHeader">Standardwährung</th>                             
+                                    <th class="headerTable">Anlagentyp</th>
+                                    <th class="headerTable">Standardwährung</th>                             
                                 </tr>
                                 </thead>                              
                             

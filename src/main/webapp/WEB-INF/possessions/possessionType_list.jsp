@@ -16,7 +16,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/category_list.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/possessionType_view.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -36,14 +36,26 @@
 
             <%-- Feld zum Anlegen eines neuen Anlagetyps --%>
             <div class="column margin">
-                <label for="j_username">Neuer Anlagetyp:</label>
+                <label class="headerForm" for="j_username">Neuer Anlagetyp:</label>
                 <input type="text" name="name" value="${possessiontype_form.values["name"][0]}">
-
+                
+                <label class="headerForm" for="j_currency">Standardwährung:</label>
+                <select name="currencySelection">
+                     <c:forEach items="${currencies}" var="currency">
+                          <option value="${currency.id}">${currency.name}</option>
+                     </c:forEach>
+                </select>
+                
+                <br/>
+                
                 <button type="submit" name="action" value="create" class="icon-pencil">
                     Anlegen
                 </button>
+                
             </div>
-
+             
+                 <br/>
+                 
             <%-- Fehlermeldungen --%>
             <c:if test="${!empty possessiontype_form.errors}">
                 <ul class="errors margin">
@@ -52,6 +64,8 @@
                         </c:forEach>
                 </ul>
             </c:if>
+            
+             <br/>
 
             <%-- Vorhandene Anlagetypen --%>
             <c:choose>
@@ -61,16 +75,40 @@
                     </p>
                 </c:when>
                 <c:otherwise>
+                    
                     <div>
-                        <div class="margin">
+                        <div>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="headerTable">Anlagentyp</th>
+                                    <th class="headerTable">Standardwährung</th>                             
+                                </tr>
+                                </thead>                              
+                            
                             <c:forEach items="${possessiontypes}" var="possessiontype">
-                                <input type="checkbox" name="possessiontype" id="${'possessiontype-'.concat(possessiontype.id)}" value="${possessiontype.id}" />
-                                <label for="${'possessiontype-'.concat(possessiontype.id)}">
-                                    <c:out value="${possessiontype.name}"/>
-                                </label>
-                                <br />
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="possessiontype" id="${'possessiontype-'.concat(possessiontype.id)}" value="${possessiontype.id}" />
+                                    </td>
+                                    <td>
+                                       <label for="${'possessiontype-'.concat(possessiontype.id)}">
+                                           <c:out value="${possessiontype.name}"/>
+                                       </label> 
+                                    </td>
+                                    <td>
+                                        <label for="${'possessiontype-'.concat(possessiontype.id)}">
+                                            <c:out value="${possessiontype.currency.name}"/>
+                                        </label>
+                                    </td>                         
+                                   
+                                </tr>
                             </c:forEach>
+                                
+                           </table>
                         </div>
+                        <br/>
 
                         <button type="submit" name="action" value="delete" class="icon-trash">
                             Markierte löschen

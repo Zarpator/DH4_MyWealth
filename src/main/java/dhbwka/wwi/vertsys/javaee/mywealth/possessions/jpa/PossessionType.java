@@ -42,8 +42,8 @@ public class PossessionType {
     @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
     List<Possession> possessions = new ArrayList<>();
     
-   // @ManyToOne
-   // Currency currency;
+    @ManyToOne
+    Currency currency;
     
     
       //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
@@ -53,6 +53,12 @@ public class PossessionType {
     public PossessionType(String name) {
         this.name = name;
        // this.currency = currency;
+    }
+    
+     public PossessionType(String name, Currency currency) {
+        this.name = name;
+        this.currency = currency;
+       
     }
     //</editor-fold>
     
@@ -79,6 +85,14 @@ public class PossessionType {
 
     public void setPossessions(List<Possession> possessions) {
         this.possessions = possessions;
+    }
+    
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
     //</editor-fold>
 }

@@ -23,6 +23,12 @@
         <link rel="stylesheet" href="<c:url value="/css/possession_list.css"/>" />
     </jsp:attribute>
 
+    <jsp:attribute name="menu">
+        <div class="menuitem">
+            <a href="<c:url value="/app/dashboard/"/>">Dashboard</a>
+        </div>
+    </jsp:attribute>
+
     <jsp:attribute name="content">
         <%-- Gefundene Besitztümer --%>
         <c:choose>

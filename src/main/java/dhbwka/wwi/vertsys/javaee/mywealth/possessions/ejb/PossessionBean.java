@@ -9,10 +9,16 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.EntityBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -31,6 +37,36 @@ public class PossessionBean extends EntityBean<Possession, Long>{
         return em.createQuery("SELECT p FROM Possession p WHERE p.owner.username = :username" /**ORDER BY t.dueDate, t.dueTime"**/)
                  .setParameter("username", username)
                  .getResultList();
+    }
+    
+    public List<Possession> search(User owner, PossessionType type) {
+        // Hilfsobjekt zum Bauen des Query
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        
+        // SELECT t FROM Possession t
+        CriteriaQuery<Possession> query = cb.createQuery(Possession.class);
+        Root<Possession> from = query.from(Possession.class);
+        query.select(from);
+
+        // ORDER BY dueDate, dueTime
+        query.orderBy(cb.desc(from.get("valueInEuro")));
+        
+        // WHERE t.shortText LIKE :search
+        Predicate p = cb.conjunction();
+        
+        // WHERE p.owner = :owner
+        if (owner != null) {
+            p = cb.and(p, cb.equal(from.get("owner"), owner));
+            query.where(p);
+        }
+        
+        // WHERE t.category = :category
+        if (type != null) {
+            p = cb.and(p, cb.equal(from.get("type"), type));
+            query.where(p);
+        }
+        
+        return em.createQuery(query).getResultList();
     }
     
 }

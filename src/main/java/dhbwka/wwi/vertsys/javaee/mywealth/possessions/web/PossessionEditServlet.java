@@ -51,16 +51,19 @@ public class PossessionEditServlet extends HttpServlet {
     // wird aufgerufen wenn die Seite zum Hinzufügen oder Bearbeiten von Possessions geladen wird
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO implement call of website
+        List<String> errors = new ArrayList<>();
 
-        // TODO add possession_form to the request (like in taskeditservlet)
         // get Possession from id in request url
-        Possession possession = this.getPossession(request);
+        Possession possession = this.getPossession(request, errors);
 
         request.setAttribute("possession", possession);
         request.setAttribute("poss_types", this.possessionTypeBean.findAllSorted());
 
-        request.getRequestDispatcher("/WEB-INF/possessions/possession_edit.jsp").forward(request, response);
+        if (!errors.isEmpty()){
+            request.getRequestDispatcher("/WEB-INF/login/error.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/possessions/possession_edit.jsp").forward(request, response);
+        }
     }
 
     // wird aufgerufen wenn auf der possession_edit.jsp ein Button zum Hinzufügen, Bearbeiten oder Löschen einer Possession geklickt wird
@@ -77,7 +80,7 @@ public class PossessionEditServlet extends HttpServlet {
 
         switch (action) {
             case "save":
-                this.saveTask(request, response);
+                this.savePossession(request, response);
                 break;
             case "delete":
                 // TODO delete possession
@@ -86,7 +89,7 @@ public class PossessionEditServlet extends HttpServlet {
         }
     }
 
-    private void saveTask(HttpServletRequest request, HttpServletResponse response)
+    private void savePossession(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Formulareingaben prüfen
@@ -97,7 +100,7 @@ public class PossessionEditServlet extends HttpServlet {
         String possValue = request.getParameter("poss_value");
         String possComments = request.getParameter("poss_comments");
 
-        Possession possession = this.getPossession(request);
+        Possession possession = this.getPossession(request, errors);
 
         if (possType != null && !possType.trim().isEmpty()) {
             try {
@@ -140,10 +143,12 @@ public class PossessionEditServlet extends HttpServlet {
         }
     }
 
-    private Possession getPossession(HttpServletRequest request) {
+    private Possession getPossession(HttpServletRequest request, List<String> errors) {
+        
         Possession possession = new Possession();
-        possession.setOwner(this.userBean.getCurrentUser());
-
+        User currentUser = this.userBean.getCurrentUser();
+        possession.setOwner(currentUser);
+        
         String id = request.getPathInfo();
 
         if (id == null) {
@@ -155,9 +160,16 @@ public class PossessionEditServlet extends HttpServlet {
         if (id.endsWith("/")) {
             id = id.substring(0, id.length() - 1);
         }
-
+        
         try {
-            possession = this.possessionBean.findById(Long.parseLong(id));
+            Possession found_possession = this.possessionBean.findById(Long.parseLong(id));
+            
+            // check if the logged user is allowed to see the found possession
+            if (found_possession != null && found_possession.getOwner().getUsername().equals(currentUser.getUsername())){
+                possession = found_possession;
+            } else {
+                errors.add("Ein Besitztum mit dieser ID gehört nicht zu deinem Besitz.");
+            }
         } catch (NumberFormatException e) {
             // ID ist nicht vorhanden oder kann nicht in Long konvertiert werden
             // Tritt ein wenn neue Possession hinzugefügt wird

@@ -49,15 +49,10 @@ public class PossessionBean extends EntityBean<Possession, Long>{
         query.select(from);
 
         // ORDER BY dueDate, dueTime
-        //query.orderBy(cb.asc(from.get("dueDate")), cb.asc(from.get("dueTime")));
+        query.orderBy(cb.desc(from.get("valueInEuro")));
         
         // WHERE t.shortText LIKE :search
         Predicate p = cb.conjunction();
-        
-        //if (search != null && !search.trim().isEmpty()) {
-        //    p = cb.and(p, cb.like(from.get("shortText"), "%" + search + "%"));
-        //    query.where(p);
-        //}
         
         // WHERE p.owner = :owner
         if (owner != null) {

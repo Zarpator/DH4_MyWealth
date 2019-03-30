@@ -43,13 +43,16 @@ public class PossessionListServlet extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         
+        // set searched possessionType
         String search_type = request.getParameter("search_possessionType");
-        PossessionType type = possessionTypeBean.findById(Long.parseLong(search_type));
-        System.out.println(type.getName());
+        PossessionType type = null;
+        if (search_type != null && !search_type.isEmpty()){
+            type = possessionTypeBean.findById(Long.parseLong(search_type));
+        }
         
-        // alle Possessions des Users auslesen
+        // set current user
         User owner = userBean.getCurrentUser();
-        System.out.println(owner.getUsername());
+        
         List<Possession> possessions = possessionBean.search(owner, type);
         
         //Possessions an den Request anhängen

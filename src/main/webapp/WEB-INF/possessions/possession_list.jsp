@@ -16,7 +16,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Liste der Besitztümer
+        Mein Besitz
     </jsp:attribute>
 
     <jsp:attribute name="head">

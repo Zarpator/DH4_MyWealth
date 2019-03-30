@@ -33,6 +33,10 @@ public class PossessionListServlet extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         
+        String search_type = request.getParameter("search_possessionType");
+        System.out.println(search_type);
+        
+        
         // alle Possessions des Users auslesen
         String username = request.getUserPrincipal().getName();
         List<Possession> possessions = possessionBean.findByUser(username);

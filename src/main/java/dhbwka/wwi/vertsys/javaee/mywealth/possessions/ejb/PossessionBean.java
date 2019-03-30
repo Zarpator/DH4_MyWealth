@@ -9,6 +9,7 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.EntityBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import java.util.List;
@@ -38,7 +39,7 @@ public class PossessionBean extends EntityBean<Possession, Long>{
                  .getResultList();
     }
     
-    public List<Possession> search(String search, PossessionType type) {
+    public List<Possession> search(User owner, PossessionType type) {
         // Hilfsobjekt zum Bauen des Query
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         
@@ -57,6 +58,12 @@ public class PossessionBean extends EntityBean<Possession, Long>{
         //    p = cb.and(p, cb.like(from.get("shortText"), "%" + search + "%"));
         //    query.where(p);
         //}
+        
+        // WHERE p.owner = :owner
+        if (owner != null) {
+            p = cb.and(p, cb.equal(from.get("owner"), owner));
+            query.where(p);
+        }
         
         // WHERE t.category = :category
         if (type != null) {

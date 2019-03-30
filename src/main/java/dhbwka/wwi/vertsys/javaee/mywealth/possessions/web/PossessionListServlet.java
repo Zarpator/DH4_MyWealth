@@ -8,8 +8,12 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -29,17 +33,24 @@ public class PossessionListServlet extends HttpServlet{
     @EJB
     private PossessionBean possessionBean;
     
+    @EJB
+    private PossessionTypeBean possessionTypeBean;
+    
+    @EJB
+    private UserBean userBean;
+    
     // wird aufgerufen wenn die Seite zum Ansehen der Possessions geladen wird
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         
         String search_type = request.getParameter("search_possessionType");
-        System.out.println(search_type);
-        
+        PossessionType type = possessionTypeBean.findById(Long.parseLong(search_type));
+        System.out.println(type.getName());
         
         // alle Possessions des Users auslesen
-        String username = request.getUserPrincipal().getName();
-        List<Possession> possessions = possessionBean.findByUser(username);
+        User owner = userBean.getCurrentUser();
+        System.out.println(owner.getUsername());
+        List<Possession> possessions = possessionBean.search(owner, type);
         
         //Possessions an den Request anhängen
         request.setAttribute("possessions", possessions);

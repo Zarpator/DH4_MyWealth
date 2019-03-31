@@ -9,6 +9,7 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.EntityBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
 import java.util.List;
@@ -30,6 +31,11 @@ public class PossessionTypeBean extends EntityBean<PossessionType, Long> {
      public List<PossessionType> findAllSorted() {
         return this.em.createQuery("SELECT p FROM PossessionType p ORDER BY p.name").getResultList();
     }
-    
+     
+    public List<PossessionType> findAllByUser(User owner) {
+        return this.em.createQuery("SELECT p FROM PossessionType p wHERE p.owner = :owner ORDER BY p.name")
+                .setParameter("owner", owner)
+                .getResultList();
+    }
     
 }

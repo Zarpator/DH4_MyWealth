@@ -8,6 +8,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.FormValues;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.CurrencyBean;
@@ -40,6 +41,9 @@ public class PossessionTypeListServlet extends HttpServlet {
 
     @EJB
     PossessionTypeBean possessiontypeBean;
+    
+    @EJB
+    UserBean userBean;
 
     @EJB
     PossessionBean possessionBean;
@@ -55,7 +59,7 @@ public class PossessionTypeListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Alle vorhandenen Anlagetypen ermitteln
-        request.setAttribute("possessiontypes", this.possessiontypeBean.findAllSorted());
+        request.setAttribute("possessiontypes", this.possessiontypeBean.findAllByUser(this.userBean.getCurrentUser()));
         request.setAttribute("currencies", this.currencyBean.findAll());
 
         // Anfrage an dazugerhörige JSP weiterleiten
@@ -106,7 +110,7 @@ public class PossessionTypeListServlet extends HttpServlet {
         Currency currency = this.currencyBean.findById(Long.parseLong(currencyName));
         if(name.trim()=="")
             name=null;
-        PossessionType possessionType = new PossessionType(name, currency);
+        PossessionType possessionType = new PossessionType(name, currency, this.userBean.getCurrentUser());
         
         List<String> errors = this.validationBean.validate(possessionType);
 

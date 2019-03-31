@@ -57,9 +57,16 @@ public class SignUpServlet extends HttpServlet {
         String username = request.getParameter("signup_username");
         String password1 = request.getParameter("signup_password1");
         String password2 = request.getParameter("signup_password2");
+        String firstname = request.getParameter("signup_firstname");
+        String lastname = request.getParameter("signup_lastname");
         
         // Eingaben prüfen
-        User user = new User(username, password1);
+        if(firstname.trim().equals("")){
+            firstname=null;
+        }
+        if(lastname.trim().equals(""))
+            lastname=null;
+        User user = new User(username, password1, firstname, lastname);
         List<String> errors = this.validationBean.validate(user);
         this.validationBean.validate(user.getPassword(), errors);
         
@@ -67,10 +74,11 @@ public class SignUpServlet extends HttpServlet {
             errors.add("Die beiden Passwörter stimmen nicht überein.");
         }
         
+        
         // Neuen Benutzer anlegen
         if (errors.isEmpty()) {
             try {
-                this.userBean.signup(username, password1);
+                this.userBean.signup(username, password1, firstname, lastname);
             } catch (UserBean.UserAlreadyExistsException ex) {
                 errors.add(ex.getMessage());
             }

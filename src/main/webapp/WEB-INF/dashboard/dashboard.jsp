@@ -34,6 +34,10 @@
         <div class="menuitem">
             <a href="<c:url value="/app/possessions/possessiontypes/"/>">Anlagetypen verwalten</a>
         </div>
+        
+         <div class="menuitem">
+            <a href="<c:url value="/app/profile/"/>">Mein Profil</a>
+        </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">

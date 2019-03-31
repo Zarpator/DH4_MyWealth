@@ -86,8 +86,7 @@ public class PossessionEditServlet extends HttpServlet {
                 this.savePossession(request, response);
                 break;
             case "delete":
-                // TODO delete possession
-                //this.deleteTask(request, response);
+                this.deletePossession(request, response);
                 break;
         }
     }
@@ -180,5 +179,18 @@ public class PossessionEditServlet extends HttpServlet {
         }
 
         return possession;
+    }
+    
+    private void deletePossession(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        List<String> errors = new ArrayList<>();
+        
+        // Datensatz löschen
+        Possession possession = this.getPossession(request, errors);
+        this.possessionBean.delete(possession);
+
+        // Zurück zur Übersicht
+        response.sendRedirect(WebUtils.appUrl(request, "/app/possessions/list/"));
     }
 }

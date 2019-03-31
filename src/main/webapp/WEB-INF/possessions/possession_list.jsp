@@ -49,7 +49,9 @@
                     <thead>
                         <tr>
                             <th>Besitztum</th>
+                            <th>Typ</th>
                             <th>Wert [in €]</th>
+                            <th>Kommentare</th>
                         </tr>
                     </thead>
                     <c:forEach items="${possessions}" var="possession">
@@ -60,7 +62,13 @@
                                 </a>
                             </td>
                             <td>
+                                <c:out value="${possession.type.name}"/>
+                            </td>
+                            <td>
                                 <c:out value="${possession.valueInEuro}"/>
+                            </td>
+                            <td>
+                                <c:out value="${possession.comments}"/>
                             </td>
                         </tr>
                     </c:forEach>

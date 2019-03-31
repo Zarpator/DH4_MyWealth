@@ -9,6 +9,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.tasks.ejb;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardContentProvider;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardSection;
@@ -28,10 +29,13 @@ import javax.ejb.Stateless;
 public class DashboardContent implements DashboardContentProvider {
 
     @EJB
+    UserBean userBean;
+    
+    @EJB
     private CategoryBean categoryBean;
     
     @EJB
-    private PossessionTypeBean possessionTypeBean;
+    PossessionTypeBean possessionTypeBean;
 
     @EJB
     private TaskBean taskBean;
@@ -77,7 +81,7 @@ public class DashboardContent implements DashboardContentProvider {
         DashboardTile tile = this.createTile(new PossessionType(), "Alle", cssClass + " status-all", "calendar");
         section.getTiles().add(tile);
         
-        List<PossessionType> possessionTypes = this.possessionTypeBean.findAllSorted();
+        List<PossessionType> possessionTypes = this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser());
         // Ja Aufgabenstatus eine weitere Kachel erzeugen
         for (PossessionType possessionType2 : possessionTypes) {
             String cssClass1 = cssClass + " status-open";
@@ -122,7 +126,7 @@ public class DashboardContent implements DashboardContentProvider {
      * @return
      */
     private DashboardTile createTile(PossessionType possessionType, String label, String cssClass, String icon) {
-        int amount = possessionTypeBean.findAll().size();
+        int amount = possessionTypeBean.findAllByUser(this.userBean.getCurrentUser()).size();
         String href = "/app/possessions/list/";
 
         if (possessionType != null) {

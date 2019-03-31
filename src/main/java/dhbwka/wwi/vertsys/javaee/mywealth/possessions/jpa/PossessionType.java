@@ -8,6 +8,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
@@ -45,6 +47,9 @@ public class PossessionType {
     @ManyToOne
     Currency currency;
     
+    @ManyToOne
+    User owner;
+    
     
       //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public PossessionType() {
@@ -55,9 +60,10 @@ public class PossessionType {
        // this.currency = currency;
     }
     
-     public PossessionType(String name, Currency currency) {
+     public PossessionType(String name, Currency currency, User owner) {
         this.name = name;
         this.currency = currency;
+        this.owner = owner;
        
     }
     //</editor-fold>
@@ -93,6 +99,14 @@ public class PossessionType {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+    
+     public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
     //</editor-fold>
 }

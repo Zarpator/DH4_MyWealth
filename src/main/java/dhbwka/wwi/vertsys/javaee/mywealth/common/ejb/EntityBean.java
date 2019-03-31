@@ -60,6 +60,7 @@ public abstract class EntityBean<Entity, EntityId> {
      */
     public List<Entity> findAll() {
         String select = "SELECT e FROM $E e".replace("$E", this.entityClass.getName());
+        System.out.println("findAll aufgerufen");
         return em.createQuery(select).getResultList();
     }
 

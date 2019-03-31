@@ -28,6 +28,7 @@ public class MyWealthRestAPI extends Application {
 
         // Hier für jede Webservice-Klasse eine Zeile hinzufügen
         resources.add(PossessionTypeResource.class);
+        resources.add(PossessionResource.class);
 
         return resources;
     }

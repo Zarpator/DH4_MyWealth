@@ -44,12 +44,13 @@ public class UserBean {
      * @param password
      * @throws UserBean.UserAlreadyExistsException
      */
-    public void signup(String username, String password) throws UserAlreadyExistsException {
+    public void signup(String username, String password, String firstname, String lastname) throws UserAlreadyExistsException {
         if (em.find(User.class, username) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", username));
         }
 
-        User user = new User(username, password);
+       // User user = new User(username, password, firstname, lastname);
+       User user = new User(username,password, firstname, lastname);
         user.addToGroup("app-user");
         em.persist(user);
     }
@@ -62,12 +63,13 @@ public class UserBean {
      * @throws UserBean.InvalidCredentialsException
      */
     @RolesAllowed("app-user")
-    public void changePassword(User user, String oldPassword, String newPassword) throws InvalidCredentialsException {
+    public User changePassword(User user, String oldPassword, String newPassword) throws InvalidCredentialsException {
         if (user == null || !user.checkPassword(oldPassword)) {
             throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
         }
 
         user.setPassword(newPassword);
+        return user;
     }
     
     /**

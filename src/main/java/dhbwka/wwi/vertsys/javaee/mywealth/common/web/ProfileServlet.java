@@ -51,8 +51,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("edit_mode", "true");
-        doGet(request, response);
+      
     }
 
 

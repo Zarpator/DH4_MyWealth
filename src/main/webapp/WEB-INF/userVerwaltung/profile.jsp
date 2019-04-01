@@ -18,7 +18,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/profile.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -28,115 +28,75 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
-        <div class="container">
+        <div class="container" >
             <form method="post" class="stacked">
+          
                 <div class="column">
                   <%-- CSRF-Token --%>
                     <input type="hidden" name="csrf_token" value="${csrf_token}">
 
-                <div>
+                <div class="entry">
                     <label for="username">
                         Benutzername:
                         
                     </label>
-                    
-                        <label type="text" name="username">
+                    <div>
+                        <label type="text" name="username" class="textFormat">
                             <c:out value="${user.username}"/>
                         </label>
+                    </div>    
                 </div>
                         
-                <div>
+                <div class="entry">
                     <label for="firstname">
                         Vorname:
                         
                     </label>
-                    
-                        <label type="text" name="vorname">
+                    <div>
+                        <label type="text" name="vorname" class="textFormat">
                             <c:out value="${user.firstname}"/>
                         </label>
+                        </div>    
                 </div>
                         
-                <div>
+                <div class="entry">
                     <label for="lastname">
                         Nachname:
                         
                     </label>
-                    
-                        <label type="text" name="lastname">
+                    <div>
+                        <label type="text" name="lastname" class="textFormat">
                             <c:out value="${user.lastname}"/>
                         </label>
+                    </div>    
                 </div>        
                  
-                 <div>
+                 <div class="entry">
                     <label for="password">
                         Passwort:
                         
                     </label>
-                    
-                        <label type="text" name="username">
+                     <div>
+                        <label type="text" name="username" class="textFormat" >
                             <c:out value="${user.password}"/>
                         </label>
+                     </div>    
                 </div>       
                     
                     
                
-                    <%-- Button zum Abschicken --%>
-                    <div class="side-by-side">
-                        <button class="icon-pencil" type="submit">
-                            Editieren
-                        </button>
+                    <%-- Link zum Weiterleien --%>
+                    <div class="entry">
+                        <br/>
+                         <a href="<c:url value="/app/profile/edit"/>">Benutzerdaten ändern</a>
                     </div>
                 </div>
+                   
+                    
                     
                
                  
-                 <c:choose>
-                     <c:when test="${empty edit_mode}">
-                          Hier sollte noch nichts stehen
-                     </c:when>
-                    <c:otherwise>
-                              <%-- Eingabefelder --%>
-                    <label for="userdata_username">
-                        Benutzername:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="userdata_username" value="${user.username}">
-                    </div>
-                    
-                    <label for="userdata_firstname">
-                        Vorname:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="userdata_firstname" value="${user.firstname}">
-                    </div>
-                    
-                    <label for="userdata_lastname">
-                        Nachname:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="userdata_lastname" value="${user.lastname}">
-                    </div>
-
-                    <label for="userdata_password1">
-                        neues Passwort:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="password" name="signup_password1" value="${userdata_form.values["signup_password1"][0]}">
-                    </div>
-
-                    <label for="signup_password2">
-                        Passwort (wdh.):
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="password" name="signup_password2" value="${userdata_form.values["signup_password2"][0]}">
-                    </div>
-                     </c:otherwise>
-                </c:choose>
+                
 
                 <%-- Fehlermeldungen --%>
                 <c:if test="${!empty signup_form.errors}">

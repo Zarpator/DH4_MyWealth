@@ -14,6 +14,7 @@ import dhbwka.wwi.vertsys.javaee.mywealth.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardContentProvider;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardSection;
 import dhbwka.wwi.vertsys.javaee.mywealth.dashboard.ejb.DashboardTile;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import dhbwka.wwi.vertsys.javaee.mywealth.tasks.jpa.Category;
@@ -39,6 +40,9 @@ public class DashboardContent implements DashboardContentProvider {
 
     @EJB
     private TaskBean taskBean;
+    
+    @EJB
+    PossessionBean possessionBean;
 
     /**
      * Vom Dashboard aufgerufenen Methode, um die anzuzeigenden Rubriken und
@@ -78,14 +82,14 @@ public class DashboardContent implements DashboardContentProvider {
        
 
         // Eine Kachel für alle Aufgaben in dieser Rubrik erzeugen
-        DashboardTile tile = this.createTile(new PossessionType(), "Alle", cssClass + " status-all", "calendar");
+        DashboardTile tile = this.createTile(new PossessionType(), "Alle", cssClass + " status-all", "id-card");
         section.getTiles().add(tile);
         
         List<PossessionType> possessionTypes = this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser());
         // Ja Aufgabenstatus eine weitere Kachel erzeugen
         for (PossessionType possessionType2 : possessionTypes) {
             String cssClass1 = cssClass + " status-open";
-            String icon = "rocket";
+            String icon = "search";
 
          /*   switch (status) {
                 case OPEN:
@@ -126,7 +130,13 @@ public class DashboardContent implements DashboardContentProvider {
      * @return
      */
     private DashboardTile createTile(PossessionType possessionType, String label, String cssClass, String icon) {
-        int amount = possessionTypeBean.findAllByUser(this.userBean.getCurrentUser()).size();
+        int amount =0;
+        if(label.equals("Alle")){
+            amount = this.possessionBean.findByUser(this.userBean.getCurrentUser().getUsername()).size();
+        } else {
+            amount = this.possessionBean.search(this.userBean.getCurrentUser(), possessionType).size();
+        }
+        
         String href = "/app/possessions/list/";
 
         if (possessionType != null) {

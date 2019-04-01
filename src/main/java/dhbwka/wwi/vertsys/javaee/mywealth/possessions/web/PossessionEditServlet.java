@@ -8,7 +8,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
-import com.sun.xml.internal.ws.util.StringUtils;
+
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;

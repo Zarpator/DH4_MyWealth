@@ -9,10 +9,12 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.common.web;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean.InvalidCredentialsException;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ProfileEditServlet", urlPatterns = {"/app/profile/edit"})
 public class ProfileEditServlet extends HttpServlet {
+    private static boolean changed = false;
     
     @EJB
     UserBean userBean;
@@ -40,45 +43,81 @@ public class ProfileEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          FormValues formValues = new FormValues();
+        if(!changed){  
+        
+        FormValues formValues = new FormValues();
           User user = this.userBean.getCurrentUser();
           String[] arrayUsername = {user.getUsername()};
           String[] arrayFirstname = {user.getFirstname()};
           String[] arrayLastname = {user.getLastname()};
+          String[] arrayErrors = {"Hallo"};
           HashMap<String, String[]> userData = new HashMap<String, String[]>();
           userData.put("username", arrayUsername);
           userData.put("firstname", arrayFirstname);
           userData.put("lastname", arrayLastname);
+          userData.put("errors", arrayErrors);
           
 
                   
            formValues.setValues(userData);
          request.setAttribute("userdata_form", formValues);
-
-         
-            
-        
-        
-        
+        }
+       
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/userVerwaltung/profile_edit.jsp");
         dispatcher.forward(request, response);
+        
+        // Alte Formulardaten aus der Session entfernen
+        HttpSession session = request.getSession();
+        session.removeAttribute("userdata_form");
+       
     }
 
    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
+        
+        // Angeforderte Aktion ausführen        
+        String action = request.getParameter("action");
+
+        if (action == null) {
+            action = "";
+        }
+        
+        switch (action) {
+            case "changeData":
+                changed=true;
+                this.changeData(request, response);
+                break;
+            case "changePassword":
+                changed=true;
+                this.changePassword(request, response);
+                break;
+        }
+          
+        }
+        
+       
+      
+       
+    
+    private void changeData(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
          String username = request.getParameter("username");
          String firstname = request.getParameter("firstname");
          String lastname = request.getParameter("lastname");
-         String password1 = request.getParameter("password1");
-         String password2 = request.getParameter("password2");
+         
+          String[] arrayFirstname = {firstname};
+          String[] arrayLastname = {lastname};
          
          if(firstname.trim().equals("")){
             firstname=null;
         }
         if(lastname.trim().equals(""))
             lastname=null;
+        
+        
        
            
         User user = this.userBean.getCurrentUser();
@@ -87,13 +126,52 @@ public class ProfileEditServlet extends HttpServlet {
         user.setLastname(lastname);
        
         List<String> errors = this.validationBean.validate(user);
-        this.validationBean.validate(user.getPassword(), errors);
+        //this.validationBean.validate(user.getPassword(), errors);
+        
+        
+        if(errors.isEmpty()){
+             this.userBean.update(user);
+             changed=false;
+                response.sendRedirect(request.getRequestURI().substring(0, 22));
+        }else {
+            // Fehler: Formular erneut anzeigen
+            FormValues formValues = new FormValues();
+            formValues.setValues(request.getParameterMap());
+            formValues.setErrors(errors);
+            //formValues.getValues().replace("firstname", arrayFirstname);
+            //formValues.getValues().replace("lastname", arrayLastname);
+            HttpSession session = request.getSession();
+            //session.removeAttribute("userdata_form");
+            session.setAttribute("userdata_form", formValues);
+            
+            response.sendRedirect(request.getRequestURI());
+             
+       }
+    }
+ 
+    
+    
+    private void changePassword(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        String password1 = request.getParameter("password1");
+         String password2 = request.getParameter("password2");
+           
+         User dummy = new User("", password1, "", "");
+         
+         List<String> errors = new ArrayList<String>();
+        this.validationBean.validate(dummy.getPassword(), errors);
         
         if (password1 != null && password2 != null && !password1.equals(password2)) {
             errors.add("Die beiden Passwörter stimmen nicht überein.");
         }
-        if(errors.isEmpty()){
-             this.userBean.update(user);
+        
+       User currentUser = this.userBean.getCurrentUser();
+       
+       
+        if(errors.isEmpty()){  
+            currentUser.setPassword(password1);
+            this.userBean.update(currentUser);
+                changed=false;
                 response.sendRedirect(request.getRequestURI().substring(0, 22));
         }else {
             // Fehler: Formular erneut anzeigen
@@ -102,18 +180,18 @@ public class ProfileEditServlet extends HttpServlet {
             formValues.setErrors(errors);
             
             HttpSession session = request.getSession();
-            session.removeAttribute("userdata_form");
+            //session.removeAttribute("userdata_form");
             session.setAttribute("userdata_form", formValues);
             
             response.sendRedirect(request.getRequestURI());
-        }
+            
+       }
+         
         
-        
-       
-       
-       
-      
-       
+         
+         
+         
+         
     }
 
  

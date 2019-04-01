@@ -63,12 +63,13 @@ public class UserBean {
      * @throws UserBean.InvalidCredentialsException
      */
     @RolesAllowed("app-user")
-    public void changePassword(User user, String oldPassword, String newPassword) throws InvalidCredentialsException {
+    public User changePassword(User user, String oldPassword, String newPassword) throws InvalidCredentialsException {
         if (user == null || !user.checkPassword(oldPassword)) {
             throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
         }
 
         user.setPassword(newPassword);
+        return user;
     }
     
     /**

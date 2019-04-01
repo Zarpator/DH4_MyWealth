@@ -71,6 +71,35 @@
                         <input type="text" name="lastname" value="${userdata_form.values["lastname"][0]}">
                     </div>
                    </div> 
+                    
+                     <div class="entry" class="edit"> 
+                    <%-- Button zum Abschicken --%>
+                    <div class="side-by-side">
+                        <button type="submit" name="action" value="changeData" class="icon-pencil">
+                            Editieren
+                        </button>
+                    </div>
+                    </div>
+                    
+                    
+                    
+                      <%-- Fehlermeldungen --%>
+                <c:if test="${!empty userdata_form.errors}">
+                    <ul class="errors">
+                        <c:forEach items="${userdata_form.errors}" var="error">
+                            <li>${error}</li>
+                            </c:forEach>
+                    </ul>
+                </c:if>
+                    
+                    
+                    
+                    <div class="entry" class="edit">  
+                    <label>
+                        Passwort ändern:
+                        <span class="required"></span>
+                    </label>
+                    </div>    
 
                    <div class="entry" class="edit"> 
                     <label for="userdata_password1">
@@ -92,26 +121,19 @@
                     </div>
                    </div>
                     
-                    <div class="entry" class="edit"> 
+                   <div class="entry" class="edit"> 
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
-                        <button class="icon-pencil" type="submit">
+                        <button type="submit" name="action" value="changePassword" class="icon-pencil">
                             Editieren
                         </button>
                     </div>
                     </div>
+                    
+                   
                 </div>
                     
                
-
-                <%-- Fehlermeldungen --%>
-                <c:if test="${!empty userdata_form.errors}">
-                    <ul class="errors">
-                        <c:forEach items="${userdata_form.errors}" var="error">
-                            <li>${error}</li>
-                            </c:forEach>
-                    </ul>
-                </c:if>
             </form>
         </div>
     </jsp:attribute>

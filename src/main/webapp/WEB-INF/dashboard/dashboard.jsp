@@ -37,6 +37,7 @@
 
         <div class="menuitem">
             <a href="<c:url value="/app/possessions/currencies/"/>">Währungen verwalten</a>
+        </div>
          <div class="menuitem">
             <a href="<c:url value="/app/profile/"/>">Mein Profil</a>
         </div>

@@ -1,0 +1,24 @@
+/*
+Copyright © 2019 David Scheid
+Copyright © 2019 Jonas Strube
+Copyright © 2019 Tim Bayer
+
+Dieser Quellcode ist lizenziert unter einer
+Creative Commons Namensnennung 4.0 International Lizenz.
+*/
+/* 
+    Created on : 01.04.2019, 10:13:07
+    Author     : timba
+*/
+
+.entry{
+    padding:1em;
+}
+
+.textFormat{
+    font-weight: normal;
+}
+
+.edit{
+    padding-bottom: 0.5em !important;
+}

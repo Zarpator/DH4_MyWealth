@@ -34,9 +34,11 @@
         <div class="menuitem">
             <a href="<c:url value="/app/possessions/possessiontypes/"/>">Anlagetypen verwalten</a>
         </div>
-        
+
         <div class="menuitem">
             <a href="<c:url value="/app/possessions/currencies/"/>">Währungen verwalten</a>
+         <div class="menuitem">
+            <a href="<c:url value="/app/profile/"/>">Mein Profil</a>
         </div>
     </jsp:attribute>
 

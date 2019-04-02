@@ -58,6 +58,14 @@ public class User implements Serializable {
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Das Passwort darf nicht leer sein.")
     private String passwordHash;
+    
+    @Column(name = "FIRSTNAME", length = 64)
+    @NotNull(message = "Sofern du kein Alien bist solltest du einen Vornamen angeben - die MyWealth-Crew bedankt sich herzlich")
+    private String firstname;
+    
+    @Column(name = "LASTNAME", length = 64)
+    @NotNull(message = "Sofern du kein Alien bist solltest du deinen Nachnamen angeben - sänk you very much")
+    private String lastname;
 
     @ElementCollection
     @CollectionTable(
@@ -82,6 +90,16 @@ public class User implements Serializable {
         this.username = username;
         this.password.password = password;
         this.passwordHash = this.hashPassword(password);
+        this.firstname = "Peter";
+        this.lastname = "Pan";
+    }
+    
+    public User(String username, String password, String firstname, String lastname) {
+        this.username = username;
+        this.password.password = password;
+        this.passwordHash = this.hashPassword(password);
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
     //</editor-fold>
 
@@ -101,6 +119,22 @@ public class User implements Serializable {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+     public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prüfen">

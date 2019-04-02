@@ -75,4 +75,8 @@ private double conversionRate;
 
     //</editor-fold>
 
+//Umrechnen von Währungen    
+public double calculateValue(double valueInEuro) {
+    return valueInEuro/conversionRate;
+}
 }

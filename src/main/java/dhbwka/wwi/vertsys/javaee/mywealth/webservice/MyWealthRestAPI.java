@@ -10,7 +10,6 @@ package dhbwka.wwi.vertsys.javaee.mywealth.webservice;
 
 import java.util.HashSet;
 import java.util.Set;
-import javafx.stage.Stage;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
@@ -28,6 +27,7 @@ public class MyWealthRestAPI extends Application {
 
         // Hier für jede Webservice-Klasse eine Zeile hinzufügen
         resources.add(PossessionTypeResource.class);
+        resources.add(CurrencyResource.class);
 
         return resources;
     }

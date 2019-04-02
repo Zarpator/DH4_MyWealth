@@ -8,6 +8,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.webservice;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import java.util.List;
@@ -34,6 +35,9 @@ import javax.ws.rs.core.MediaType;
 public class PossessionTypeResource {
     
     @EJB
+    UserBean userBean;
+    
+    @EJB
     private PossessionTypeBean possessionTypeBean;
     
     
@@ -44,7 +48,11 @@ public class PossessionTypeResource {
      */
     @GET
     public List<PossessionType> findPossessionTypes(){
-        return this.possessionTypeBean.findAll();
+        List<PossessionType> list = this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser());
+        for(PossessionType possessionType : list){
+            possessionType.setOwner(null);
+        }
+        return list;
     }
 
     /**

@@ -27,6 +27,11 @@
         <div class="menuitem">
             <a href="<c:url value="/app/dashboard/"/>">Dashboard</a>
         </div>
+
+        <%-- Feld zum Anlegen eines neuen Besitztums --%>
+        <div class="menuitem">
+            <a href="<c:url value="/app/possessions/possession/new"/>">Besitz hinzufügen</a>
+        </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">
@@ -62,12 +67,5 @@
                 </table>
             </c:otherwise>
         </c:choose>
-
-        <%-- Feld zum Anlegen eines neuen Besitztums --%>
-        <div class="column margin">
-            <div>
-                <a href="<c:url value="/app/possessions/possession/new"/>">Besitz hinzufügen</a>
-            </div>
-        </div>
     </jsp:attribute>
 </template:base>

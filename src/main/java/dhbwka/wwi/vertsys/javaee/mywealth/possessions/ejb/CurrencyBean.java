@@ -9,8 +9,10 @@
 package dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.EntityBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Currency;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import java.util.List;
 import javax.ejb.Stateless;
 
@@ -25,11 +27,14 @@ public class CurrencyBean extends EntityBean<Currency, Long>{
         super(Currency.class);
     }
     
-    // TODO define order of the results (template is commented out)
-    public List<Currency> findByUser(String username){
-        return em.createQuery("SELECT e FROM Currency e WHERE e.owner.username = :username" /**ORDER BY t.dueDate, t.dueTime"**/)
-                            .setParameter("username", username)
-                            .getResultList();
+     public List<Currency> findAllSorted() {
+        return this.em.createQuery("SELECT p FROM Currency p ORDER BY p.name").getResultList();
+    }
+     
+    public List<Currency> findAllByUser(User owner) {
+        return this.em.createQuery("SELECT p FROM Currency p wHERE p.owner = :owner ORDER BY p.name")
+                .setParameter("owner", owner)
+                .getResultList();
     }
     
 }

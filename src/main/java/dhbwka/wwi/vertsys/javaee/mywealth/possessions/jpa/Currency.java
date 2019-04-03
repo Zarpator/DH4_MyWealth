@@ -36,15 +36,19 @@ private String name;
 @NotNull(message = "Die Währung muss einen Umrechnungsfaktor haben.")
 private double conversionRate;
 
+@ManyToOne
+User owner;
+
 //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Currency() {
     }
     
     
 
-    public Currency(String name, double conversionRate) {
+    public Currency(String name, double conversionRate, User owner) {
         this.name = name;
         this.conversionRate = conversionRate;
+        this.owner = owner;
     }
     //</editor-fold>
     
@@ -71,6 +75,14 @@ private double conversionRate;
 
     public void setConversionRate(double conversionRate) {
         this.conversionRate = conversionRate;
+    }
+    
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     //</editor-fold>

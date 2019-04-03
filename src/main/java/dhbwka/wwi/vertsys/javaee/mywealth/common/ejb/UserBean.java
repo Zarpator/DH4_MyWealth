@@ -37,6 +37,10 @@ public class UserBean {
     public User getCurrentUser() {
         return this.em.find(User.class, this.ctx.getCallerPrincipal().getName());
     }
+    
+    public User findByUsername(String username) {
+        return this.em.find(User.class, username);
+    }
 
     /**
      *

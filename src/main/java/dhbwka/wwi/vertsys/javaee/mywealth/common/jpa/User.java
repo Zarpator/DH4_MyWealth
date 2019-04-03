@@ -67,9 +67,9 @@ public class User implements Serializable {
     @NotNull(message = "Sofern du kein Alien bist solltest du deinen Nachnamen angeben - sänk you very much")
     private String lastname;
 
-    @ElementCollection
+   @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
-            name = "MYWEALTH_USER_GROUP",
+            name = "JTODO_USER_GROUP",
             joinColumns = @JoinColumn(name = "USERNAME")
     )
     @Column(name = "GROUPNAME")
@@ -77,9 +77,8 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     List<Task> tasks = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    List<Possession> possessions = new ArrayList<>();
+
+   
     
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">

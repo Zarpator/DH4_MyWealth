@@ -53,25 +53,6 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-    
-       <security-constraint>
-        <!-- Ändernde Zugriffe auf Songs -->
-        <web-resource-collection>
-            <web-resource-name>myWealth-Webservice</web-resource-name>
-            <url-pattern>/api/*</url-pattern>
-            
-        </web-resource-collection>
-
-        <!-- Benötigte Rolle -->
-        <auth-constraint>
-            <role-name>app-user</role-name>
-        </auth-constraint>
-
-        <!-- Zugriff nur via HTTPS erlauben -->
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
 
     <!--
         Übersicht über alle von dieser Webanwendung genutzten Benutzerollen
@@ -101,4 +82,7 @@
             <form-error-page>/WEB-INF/login/error.jsp</form-error-page>
         </form-login-config>
     </login-config>
+    
+   
+   
 </web-app>

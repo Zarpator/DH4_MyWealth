@@ -78,7 +78,7 @@
                     </label>
                      <div>
                         <label type="text" name="username" class="textFormat" >
-                            <c:out value="${user.password}"/>
+                            Dein Passwort ist so gut verschlüsselt, da kommt nicht mal die NSA ran
                         </label>
                      </div>    
                 </div>       

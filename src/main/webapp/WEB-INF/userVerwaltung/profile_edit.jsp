@@ -76,7 +76,7 @@
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
                         <button type="submit" name="action" value="changeData" class="icon-pencil">
-                            Editieren
+                            Änderungen speichern
                         </button>
                     </div>
                     </div>
@@ -125,7 +125,7 @@
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
                         <button type="submit" name="action" value="changePassword" class="icon-pencil">
-                            Editieren
+                            neues Passwort sichern
                         </button>
                     </div>
                     </div>

@@ -43,26 +43,26 @@ public class ProfileEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Prüfe ob der Nutzer bereits versucht hat seine Daten zu ändern, aber die Validation fehl schlug.
+        //Die Eingaben die den Fehler verursachten sollten auch bei einem Reload in den Feldern bleiben, der status ist "changed=true"
+        //Ist der User neu auf der Seite, werden alle Benutzerdaten aus der Datenbank gezogen und es ist "changed=false"
         if(!changed){  
-        
-        FormValues formValues = new FormValues();
+           //Prefill FormValues object with User Data
+          FormValues formValues = new FormValues();
           User user = this.userBean.getCurrentUser();
           String[] arrayUsername = {user.getUsername()};
           String[] arrayFirstname = {user.getFirstname()};
           String[] arrayLastname = {user.getLastname()};
-          String[] arrayErrors = {"Hallo"};
           HashMap<String, String[]> userData = new HashMap<String, String[]>();
           userData.put("username", arrayUsername);
           userData.put("firstname", arrayFirstname);
-          userData.put("lastname", arrayLastname);
-          userData.put("errors", arrayErrors);
-          
-
-                  
-           formValues.setValues(userData);
-         request.setAttribute("userdata_form", formValues);
+          userData.put("lastname", arrayLastname);        
+          formValues.setValues(userData);
+           
+          //set the prefill-values at the request 
+          request.setAttribute("userdata_form", formValues);
         }
-       
+       changed=false;
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/userVerwaltung/profile_edit.jsp");
         dispatcher.forward(request, response);
         
@@ -103,7 +103,7 @@ public class ProfileEditServlet extends HttpServlet {
     
     private void changeData(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+         //Werte aus der Request holen
          String username = request.getParameter("username");
          String firstname = request.getParameter("firstname");
          String lastname = request.getParameter("lastname");
@@ -117,9 +117,7 @@ public class ProfileEditServlet extends HttpServlet {
         if(lastname.trim().equals(""))
             lastname=null;
         
-        
-       
-           
+        //Dem aktuellen User die übergebenen Werte setzen 
         User user = this.userBean.getCurrentUser();
         
         user.setFirstname(firstname);
@@ -128,23 +126,21 @@ public class ProfileEditServlet extends HttpServlet {
         List<String> errors = this.validationBean.validate(user);
         //this.validationBean.validate(user.getPassword(), errors);
         
-        
+        //Wenn keine Fehler User updaten, wenn Fehler Formular erneut füllen
         if(errors.isEmpty()){
              this.userBean.update(user);
              changed=false;
-                response.sendRedirect(request.getRequestURI().substring(0, 22));
+             response.sendRedirect(request.getRequestURI().substring(0, 22));
         }else {
             // Fehler: Formular erneut anzeigen
             FormValues formValues = new FormValues();
             formValues.setValues(request.getParameterMap());
             formValues.setErrors(errors);
-            //formValues.getValues().replace("firstname", arrayFirstname);
-            //formValues.getValues().replace("lastname", arrayLastname);
             HttpSession session = request.getSession();
-            //session.removeAttribute("userdata_form");
             session.setAttribute("userdata_form", formValues);
-            
             response.sendRedirect(request.getRequestURI());
+            
+       
              
        }
     }
@@ -153,9 +149,11 @@ public class ProfileEditServlet extends HttpServlet {
     
     private void changePassword(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
+        //Passwörter aus Request lesen
         String password1 = request.getParameter("password1");
          String password2 = request.getParameter("password2");
-           
+         
+         //dummy erzeugen um mit validate(Password,errors) das Passwort zu checken
          User dummy = new User("", password1, "", "");
          
          List<String> errors = new ArrayList<String>();
@@ -167,7 +165,7 @@ public class ProfileEditServlet extends HttpServlet {
         
        User currentUser = this.userBean.getCurrentUser();
        
-       
+       //Wenn keine Fehler Passwort setzen und User updaten, ansonsten Formular erneut füllen
         if(errors.isEmpty()){  
             currentUser.setPassword(password1);
             this.userBean.update(currentUser);
@@ -179,8 +177,7 @@ public class ProfileEditServlet extends HttpServlet {
             formValues.setValues(request.getParameterMap());
             formValues.setErrors(errors);
             
-            HttpSession session = request.getSession();
-            //session.removeAttribute("userdata_form");
+            HttpSession session = request.getSession();        
             session.setAttribute("userdata_form", formValues);
             
             response.sendRedirect(request.getRequestURI());

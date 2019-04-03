@@ -46,9 +46,10 @@
                        
                     </label>
                    <div>
-                        <label type="text" name="usedata_username" class="textFormat">
+                        <label type="text" name="label_username" class="textFormat">
                             ${userdata_form.values["username"][0]}
                         </label>
+                        <input id="username_field" name="username" value="${userdata_form.values["username"][0]}" type="hidden" />
                     </div>    
                   </div> 
                   

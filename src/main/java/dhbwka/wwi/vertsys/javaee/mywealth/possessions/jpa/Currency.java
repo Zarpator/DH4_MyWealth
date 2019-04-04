@@ -91,4 +91,8 @@ User owner;
 public double calculateValue(double valueInEuro) {
     return valueInEuro/conversionRate;
 }
+
+public double convertToEuro(double valueInCurrency){
+    return valueInCurrency*conversionRate;
+}
 }

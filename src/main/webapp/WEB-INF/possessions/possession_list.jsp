@@ -49,18 +49,30 @@
                     <thead>
                         <tr>
                             <th>Besitztum</th>
+                            <th>Typ</th>
+                            <th>Wert</th>
                             <th>Wert [in €]</th>
+                            <th>Kommentare</th>
                         </tr>
                     </thead>
                     <c:forEach items="${possessions}" var="possession">
                         <tr>
                             <td>
                                 <a href="<c:url value="/app/possessions/possession/${possession.id}"/>">
-                                    <c:out value="${possession.name}"/>
+                                    <c:out value="${possession.getName()}"/>
                                 </a>
                             </td>
                             <td>
-                                <c:out value="${possession.valueInEuro}"/>
+                                <c:out value="${possession.getTyp()}"/>
+                            </td>
+                            <td>
+                                <c:out value="${possession.getVaueInMyCurrency()} ${possession.getCurrencyName()}"/>
+                            </td>
+                            <td>
+                                <c:out value="${possession.getValueInEuro()}"/>
+                            </td>
+                            <td>
+                                <c:out value="${possession.getComments()}"/>
                             </td>
                         </tr>
                     </c:forEach>

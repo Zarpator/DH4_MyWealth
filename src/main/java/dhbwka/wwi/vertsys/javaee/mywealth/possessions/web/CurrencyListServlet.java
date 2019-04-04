@@ -108,7 +108,7 @@ public class CurrencyListServlet extends HttpServlet {
         String conversionRateString = request.getParameter("conversionRate");
         double conversionRate = Double.parseDouble(conversionRateString);
         
-        Currency currency = new Currency(name, conversionRate);
+        Currency currency = new Currency(name, conversionRate, this.userBean.getCurrentUser());
         
         List<String> errors = this.validationBean.validate(currency);
 

@@ -49,9 +49,6 @@ public class PossessionTypeResource {
     @GET
     public List<PossessionType> findPossessionTypes(){
         List<PossessionType> list = this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser());
-        for(PossessionType possessionType : list){
-            possessionType.setOwner(null);
-        }
         return list;
     }
 

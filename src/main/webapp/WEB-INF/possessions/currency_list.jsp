@@ -82,9 +82,16 @@
                             
                             <c:forEach items="${currencies}" var="currency">
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" name="currency" id="${'currency-'.concat(currency.id)}" value="${currency.id}" />
-                                    </td>
+                                    <c:choose>
+                                        <c:when test="${currency.getName()=='Euro'}">
+                                            <td></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>
+                                                <input type="checkbox" name="currency" id="${'currency-'.concat(currency.id)}" value="${currency.id}" />
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <td>
                                        <label for="${'currency-'.concat(currency.id)}">
                                            <c:out value="${currency.name}"/>

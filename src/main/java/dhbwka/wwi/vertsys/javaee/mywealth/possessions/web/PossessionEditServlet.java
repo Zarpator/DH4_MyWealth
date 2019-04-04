@@ -43,7 +43,7 @@ public class PossessionEditServlet extends HttpServlet {
 
     @EJB
     private PossessionTypeBean possessionTypeBean;
-    
+
     @EJB
     private CurrencyBean currencyBean;
 
@@ -63,11 +63,11 @@ public class PossessionEditServlet extends HttpServlet {
 
         request.setAttribute("possession", possession);
         request.setAttribute("poss_types", this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser()));
-        
+
         // set if the possession is new or getting edited 
         request.setAttribute("edit", possession.getId() != 0);
 
-        if (!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             request.getRequestDispatcher("/WEB-INF/login/error.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/WEB-INF/possessions/possession_edit.jsp").forward(request, response);
@@ -109,24 +109,39 @@ public class PossessionEditServlet extends HttpServlet {
 
         Possession possession = this.getPossession(request, errors);
 
+        // Typ prüfen und hinzufügen
         if (possType != null && !possType.trim().isEmpty()) {
             try {
                 possession.setType(this.possessionTypeBean.findById(Long.parseLong(possType)));
             } catch (NumberFormatException ex) {
                 // Ungültige oder keine ID mitgegeben
             }
+        } else {
+            errors.add("Das Besitztum muss einen Typ haben");
         }
-
+        
+        // Wert prüfen und hinzufügen
         if (possValue != null || !possValue.isEmpty()) {
-            double value = Double.parseDouble(possValue);
-            Currency currency = currencyBean.findById(possession.getType().getCurrency().getId());
-            double convertedValue = currency.convertToEuro(value);
-            possession.setValueInEuro(convertedValue);
+            try {
+                double value = Double.parseDouble(possValue);
+                Currency currency = currencyBean.findById(possession.getType().getCurrency().getId());
+                double convertedValue = currency.convertToEuro(value);
+                possession.setValueInEuro(convertedValue);
+            } catch (Exception e) {
+                errors.add("Der Wert muss eine Zahl sein und einen Punkt als Dezimaltrenner haben");
+            }
         } else {
             errors.add("Das Besitztum muss einen Wert haben.");
         }
+        
+        // Name prüfen und hinzufügen
+        if (possName != null && !possName.isEmpty()) {
+            possession.setName(possName);
+        } else {
+            errors.add("Das Besitztum muss einen Namen haben");
+        }
 
-        possession.setName(possName);
+        // Comments hinzufügen
         possession.setComments(possComments);
 
         this.validationBean.validate(possession, errors);
@@ -143,7 +158,6 @@ public class PossessionEditServlet extends HttpServlet {
         } else {
             // Fehler: Formuler erneut anzeigen
             FormValues formValues = new FormValues();
-            formValues.setValues(request.getParameterMap());
             formValues.setErrors(errors);
 
             HttpSession session = request.getSession();
@@ -154,11 +168,11 @@ public class PossessionEditServlet extends HttpServlet {
     }
 
     private Possession getPossession(HttpServletRequest request, List<String> errors) {
-        
+
         Possession possession = new Possession();
         User currentUser = this.userBean.getCurrentUser();
         possession.setOwner(currentUser);
-        
+
         String id = request.getPathInfo();
 
         if (id == null) {
@@ -170,12 +184,12 @@ public class PossessionEditServlet extends HttpServlet {
         if (id.endsWith("/")) {
             id = id.substring(0, id.length() - 1);
         }
-        
+
         try {
             Possession found_possession = this.possessionBean.findById(Long.parseLong(id));
-            
+
             // check if the logged user is allowed to see the found possession
-            if (found_possession != null && found_possession.getOwner().getUsername().equals(currentUser.getUsername())){
+            if (found_possession != null && found_possession.getOwner().getUsername().equals(currentUser.getUsername())) {
                 possession = found_possession;
             } else {
                 errors.add("Ein Besitztum mit dieser ID gehört nicht zu deinem Besitz.");
@@ -188,12 +202,12 @@ public class PossessionEditServlet extends HttpServlet {
 
         return possession;
     }
-    
+
     private void deletePossession(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         List<String> errors = new ArrayList<>();
-        
+
         // Datensatz löschen
         Possession possession = this.getPossession(request, errors);
         this.possessionBean.delete(possession);

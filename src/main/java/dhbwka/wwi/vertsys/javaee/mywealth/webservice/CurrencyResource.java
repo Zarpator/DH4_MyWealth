@@ -8,6 +8,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.mywealth.webservice;
 
+import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.CurrencyBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Currency;
 import java.util.List;
@@ -35,6 +36,9 @@ public class CurrencyResource {
     @EJB
     private CurrencyBean currencyBean;
     
+    @EJB
+    UserBean userBean;
+    
     
     // <editor-fold defaultstate="collapsed" desc="Zugriff auf die Collection">
     /**
@@ -44,7 +48,7 @@ public class CurrencyResource {
      */
     @GET
     public List<Currency> findCurrencies(){
-        return this.currencyBean.findAll();
+        return this.currencyBean.findAllByUser(this.userBean.getCurrentUser());
     }
 
     /**

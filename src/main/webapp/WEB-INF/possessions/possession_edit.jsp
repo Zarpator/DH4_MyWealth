@@ -57,15 +57,15 @@
 
                         <c:forEach items="${poss_types}" var="type">
                             <option value="${type.id}" ${possession.getType().id.toString() == type.id.toString() ? 'selected' : ''}>
-                                <c:out value="${type.name}" />
+                                <c:out value="${type.name}  (Währung: ${type.getCurrency().getName()})" />
                             </option>
                         </c:forEach>
                     </select>
                 </div>
 
-                <label for="poss_value">Wert:</label>
+                <label for="poss_value">Wert (in der Währung des Typs):</label>
                 <div class="side-by-side">
-                    <input type="text" name="poss_value" value="${possession.getValueInEuro()}">
+                    <input type="text" name="poss_value" value="${possession.getType().getCurrency().calculateValue(possession.getValueInEuro())}">
                 </div>
 
                 <label for="poss_comments">Kommentare:</label>

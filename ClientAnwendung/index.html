@@ -11,65 +11,92 @@
 
     </head>
     <body>
-    <div class="abschnitt">
-      <h1>Die MyWealth-Webservice Testmaschine</h1>
-      <h4>Wähle einfach die gewünschten Informationen die selektiert werden sollen</h4>
-      <h4>und sie werden dir über die url angezeigt</h4>
-      <h5>Mit einem JSON View Plugin im Broswer deiner Wahl sehen die Daten gar nicht mal so schlecht aus</h5>
-    </div>
-    <div class="abschnitt">
-      <div class="ueberschirft">
-          <a>Anlagetypen</a>
-      </div>
-
-
-        <div>
-
-
-        <button id="buttonShowAllPossessionTypes">Zeige mir alle Anlagetypen</button>
-        <script>
-          document.getElementById("buttonShowAllPossessionTypes").onclick = function () {
-                    window.location.href="https://localhost:8443/MyWealth/api/PossessionTypes";
-            };
-        </script>
-
-        <button id="buttonShowOnePossessionTypes">Zeige mir ein Anlagetyp</button>
-        <input id="PossessionTypesID" type="text" />
-        <script>
-          document.getElementById("buttonShowOnePossessionTypes").onclick = function () {
-                    let id = document.getElementById("PossessionTypesID").value;
-                    window.location.href="https://localhost:8443/MyWealth/api/PossessionTypes/"+id;
-            };
-        </script>
-
+        <div class="abschnitt">
+            <h1>Die MyWealth-Webservice Testmaschine</h1>
+            <h4>Wähle einfach die gewünschten Informationen die selektiert werden sollen</h4>
+            <h4>und sie werden dir über die url angezeigt</h4>
+            <h5>Mit einem JSON View Plugin im Broswer deiner Wahl sehen die Daten gar nicht mal so schlecht aus</h5>
         </div>
-      </div>
-        
-    <div class="abschnitt">
-      <div class="ueberschirft">
-          <a>Währungen</a>
-      </div>
-
-    <div>
+        <div class="abschnitt">
+            <div class="ueberschirft">
+                <a>Anlagetypen</a>
+            </div>
 
 
-        <button id="buttonShowAllCurrencies">Zeige mir alle Währungen</button>
-        <script>
-          document.getElementById("buttonShowAllCurrencies").onclick = function () {
-                    window.location.href="https://localhost:8443/MyWealth/api/Currencies";
-            };
-        </script>
+            <div>
 
-        <button id="buttonShowOneCurrency">Zeige mir eine Währung</button>
-        <input id="CurrencyId" type="text" />
-        <script>
-          document.getElementById("buttonShowOneCurrency").onclick = function () {
-                    let id = document.getElementById("CurrencyId").value;
-                    window.location.href="https://localhost:8443/MyWealth/api/Currencies/"+id;
-            };
-        </script>
 
+                <button id="buttonShowAllPossessionTypes">Zeige mir alle Anlagetypen</button>
+                <script>
+                    document.getElementById("buttonShowAllPossessionTypes").onclick = function () {
+                        window.location.href = "https://localhost:8443/MyWealth/api/PossessionTypes";
+                    };
+                </script>
+
+                <button id="buttonShowOnePossessionTypes">Zeige mir ein Anlagetyp</button>
+                <input id="PossessionTypesID" type="text" />
+                <script>
+                    document.getElementById("buttonShowOnePossessionTypes").onclick = function () {
+                        let id = document.getElementById("PossessionTypesID").value;
+                        window.location.href = "https://localhost:8443/MyWealth/api/PossessionTypes/" + id;
+                    };
+                </script>
+
+            </div>
         </div>
-      </div>
+
+        <div class="abschnitt">
+            <div class="ueberschirft">
+                <a>Währungen</a>
+            </div>
+
+            <div>
+
+
+                <button id="buttonShowAllCurrencies">Zeige mir alle Währungen</button>
+                <script>
+                    document.getElementById("buttonShowAllCurrencies").onclick = function () {
+                        window.location.href = "https://localhost:8443/MyWealth/api/Currencies";
+                    };
+                </script>
+
+                <button id="buttonShowOneCurrency">Zeige mir eine Währung</button>
+                <input id="CurrencyId" type="text" />
+                <script>
+                    document.getElementById("buttonShowOneCurrency").onclick = function () {
+                        let id = document.getElementById("CurrencyId").value;
+                        window.location.href = "https://localhost:8443/MyWealth/api/Currencies/" + id;
+                    };
+                </script>
+
+            </div>
+        </div>
+
+        <div class="abschnitt">
+            <div class="ueberschirft">
+                <a>Besitztümer</a>
+            </div>
+
+            <div>
+
+
+                <button id="buttonShowAllPossessions">Zeige mir alle Besitztümer</button>
+                <script>
+                    document.getElementById("buttonShowAllPossessions").onclick = function () {
+                        window.location.href = "https://localhost:8443/MyWealth/api/Possessions";
+                    };
+                </script>
+
+                <button id="buttonShowOnePossession">Zeige mir ein Besiztum</button>
+                <input id="PossessionId" type="text" />
+                <script>
+                    document.getElementById("buttonShowOnePossession").onclick = function () {
+                        let id = document.getElementById("PossessionId").value;
+                        window.location.href = "https://localhost:8443/MyWealth/api/Possessions/" + id;
+                    };
+                </script>
+
+            </div>
+        </div>
     </body>
 </html>

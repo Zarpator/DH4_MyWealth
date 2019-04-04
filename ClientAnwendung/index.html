@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="style.css">
+
+
+        <script src="Controller.js"></script>
+
+    </head>
+    <body>
+    <div class="abschnitt">
+      <h1>Die MyWealth-Webservice Testmaschine</h1>
+      <h4>Wähle einfach die gewünschten Informationen die selektiert werden sollen</h4>
+      <h4>und sie werden dir über die url angezeigt</h4>
+      <h5>Mit einem JSON View Plugin im Broswer deiner Wahl sehen die Daten gar nicht mal so schlecht aus</h5>
+    </div>
+    <div class="abschnitt">
+      <div class="ueberschirft">
+          <a>Anlagetypen</a>
+      </div>
+
+
+        <div>
+
+
+        <button id="buttonShowAllPossessionTypes">Zeige mir alle Anlagetypen</button>
+        <script>
+          document.getElementById("buttonShowAllPossessionTypes").onclick = function () {
+                    window.location.href="https://localhost:8443/MyWealth/api/PossessionTypes";
+            };
+        </script>
+
+        <button id="buttonShowOnePossessionTypes">Zeige mir ein Anlagetyp</button>
+        <input id="PossessionTypesID" type="text" />
+        <script>
+          document.getElementById("buttonShowOnePossessionTypes").onclick = function () {
+                    let id = document.getElementById("PossessionTypesID").value;
+                    window.location.href="https://localhost:8443/MyWealth/api/PossessionTypes/"+id;
+            };
+        </script>
+
+        </div>
+
+      </div>
+    </body>
+</html>

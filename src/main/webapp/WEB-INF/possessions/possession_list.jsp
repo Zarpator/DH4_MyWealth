@@ -50,6 +50,7 @@
                         <tr>
                             <th>Besitztum</th>
                             <th>Typ</th>
+                            <th>Wert</th>
                             <th>Wert [in €]</th>
                             <th>Kommentare</th>
                         </tr>
@@ -63,6 +64,9 @@
                             </td>
                             <td>
                                 <c:out value="${possession.getTyp()}"/>
+                            </td>
+                            <td>
+                                <c:out value="${possession.getVaueInMyCurrency()} ${possession.getCurrencyName()}"/>
                             </td>
                             <td>
                                 <c:out value="${possession.getValueInEuro()}"/>

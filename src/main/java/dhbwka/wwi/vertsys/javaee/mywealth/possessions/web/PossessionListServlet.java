@@ -10,8 +10,10 @@ package dhbwka.wwi.vertsys.javaee.mywealth.possessions.web;
 
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.CurrencyBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Currency;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jspclasses.PossessionForListJSP;
@@ -37,6 +39,9 @@ public class PossessionListServlet extends HttpServlet{
     
     @EJB
     private PossessionTypeBean possessionTypeBean;
+    
+    @EJB
+    private CurrencyBean currencyBean;
     
     @EJB
     private UserBean userBean;
@@ -78,6 +83,8 @@ public class PossessionListServlet extends HttpServlet{
             possession.setComments(possessionFromEJB.getComments());
             
             possession.setCurrencyName(possessionFromEJB.getType().getCurrency().getName());
+            Currency currency = currencyBean.findById(possessionFromEJB.getType().getCurrency().getId());
+            possession.setVaueInMyCurrency(currency.calculateValue(possessionFromEJB.getValueInEuro()));
             
             possessions.add(possession);
         }

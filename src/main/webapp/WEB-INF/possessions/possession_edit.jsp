@@ -65,7 +65,7 @@
 
                 <label for="poss_value">Wert (in der Währung des Typs):</label>
                 <div class="side-by-side">
-                    <input type="text" name="poss_value" value="${possession.getValueInEuro()}">
+                    <input type="text" name="poss_value" value="${possession.getType().getCurrency().calculateValue(possession.getValueInEuro())}">
                 </div>
 
                 <label for="poss_comments">Kommentare:</label>

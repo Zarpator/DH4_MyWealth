@@ -43,7 +43,33 @@
         </script>
 
         </div>
+      </div>
+        
+    <div class="abschnitt">
+      <div class="ueberschirft">
+          <a>Währungen</a>
+      </div>
 
+    <div>
+
+
+        <button id="buttonShowAllCurrencies">Zeige mir alle Währungen</button>
+        <script>
+          document.getElementById("buttonShowAllCurrencies").onclick = function () {
+                    window.location.href="https://localhost:8443/MyWealth/api/Currencies";
+            };
+        </script>
+
+        <button id="buttonShowOneCurrency">Zeige mir eine Währung</button>
+        <input id="CurrencyId" type="text" />
+        <script>
+          document.getElementById("buttonShowOneCurrency").onclick = function () {
+                    let id = document.getElementById("CurrencyId").value;
+                    window.location.href="https://localhost:8443/MyWealth/api/Currencies/"+id;
+            };
+        </script>
+
+        </div>
       </div>
     </body>
 </html>

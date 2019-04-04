@@ -50,10 +50,7 @@
                         <tr>
                             <th>Besitztum</th>
                             <th>Typ</th>
-<<<<<<< HEAD
                             <th>Wert</th>
-=======
->>>>>>> 06bf4d6acefdbddb82a143854af6c6fd53ec5595
                             <th>Wert [in €]</th>
                             <th>Kommentare</th>
                         </tr>
@@ -69,12 +66,9 @@
                                 <c:out value="${possession.getTyp()}"/>
                             </td>
                             <td>
-<<<<<<< HEAD
                                 <c:out value="${possession.getVaueInMyCurrency()} ${possession.getCurrencyName()}"/>
                             </td>
                             <td>
-=======
->>>>>>> 06bf4d6acefdbddb82a143854af6c6fd53ec5595
                                 <c:out value="${possession.getValueInEuro()}"/>
                             </td>
                             <td>

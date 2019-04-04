@@ -62,7 +62,7 @@ public class PossessionEditServlet extends HttpServlet {
         Possession possession = this.getPossession(request, errors);
 
         request.setAttribute("possession", possession);
-        request.setAttribute("poss_types", this.possessionTypeBean.findAllSorted());
+        request.setAttribute("poss_types", this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser()));
         
         // set if the possession is new or getting edited 
         request.setAttribute("edit", possession.getId() != 0);

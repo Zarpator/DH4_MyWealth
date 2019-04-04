@@ -23,6 +23,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -47,10 +48,16 @@ public class PossessionTypeResource {
      * Auslesen einer Liste von Musikstücken.
      */
     @GET
-    public List<PossessionType> findPossessionTypes(){
-        List<PossessionType> list = this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser());
+    public List<PossessionType> findPossessionTypes(@QueryParam("name") String name){
+        List<PossessionType> list;
+        if(name == "" || name == null){
+            list = this.possessionTypeBean.findAllByUser(this.userBean.getCurrentUser());
+        } else {
+            list = this.possessionTypeBean.findByName(name);
+        }
         return list;
     }
+    
 
     /**
      * POST /api/PossessionTypes/
@@ -73,7 +80,7 @@ public class PossessionTypeResource {
     public PossessionType getPossessionType(@PathParam("id") long id) {
         return this.possessionTypeBean.findById(id);
     }
-
+    
     /**
      * PUT /api/PossessionTypes/{id}/
      * Aktualisieren eines vorhandenen Songs.

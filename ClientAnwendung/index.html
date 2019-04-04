@@ -15,6 +15,7 @@
             <h1>Die MyWealth-Webservice Testmaschine</h1>
             <h4>Wähle einfach die gewünschten Informationen die selektiert werden sollen</h4>
             <h4>und sie werden dir über die url angezeigt</h4>
+            <h4>Bevor es losgeht noch ein kurzer Check ob der Server läuft</h4>
             <h5>Mit einem JSON View Plugin im Broswer deiner Wahl sehen die Daten gar nicht mal so schlecht aus</h5>
         </div>
         <div class="abschnitt">
@@ -32,15 +33,40 @@
                         window.location.href = "https://localhost:8443/MyWealth/api/PossessionTypes";
                     };
                 </script>
+            <span class="inputElement">
 
-                <button id="buttonShowOnePossessionTypes">Zeige mir ein Anlagetyp</button>
+                <button id="buttonShowOnePossessionTypes">Suche ein Anlagetyp über ID</button>
                 <input id="PossessionTypesID" type="text" />
+                <label id=anzeigePType></label>
+            </span>
                 <script>
                     document.getElementById("buttonShowOnePossessionTypes").onclick = function () {
                         let id = document.getElementById("PossessionTypesID").value;
-                        window.location.href = "https://localhost:8443/MyWealth/api/PossessionTypes/" + id;
+                        if(id===""){
+                            document.getElementById("anzeigePType").innerHTML="Bitte zuerst eine ID eingeben";
+                        } else {
+                            window.location.href = "https://localhost:8443/MyWealth/api/PossessionTypes/" + id;
+                        }
                     };
                 </script>
+
+                <div class="inputElementNewLine">
+
+                    <button id="buttonShowOnePossessionTypeByName">Suche ein Anlagetyp über Name</button>
+                    <input id="PossessionTypeName" type="text" />
+                    <label id=anzeigePTypeName></label>
+                </div>
+                    <script>
+                        document.getElementById("buttonShowOnePossessionTypeByName").onclick = function () {
+                            let name = document.getElementById("PossessionTypeName").value;
+                            if(name===""){
+                                document.getElementById("anzeigePTypeName").innerHTML="Bitte zuerst einen Namen eingeben";
+                            } else {
+                                window.location.href = "https://localhost:8443/MyWealth/api/PossessionTypes/?name=" + name;
+                            }
+                        };
+                    </script>
+
 
             </div>
         </div>
@@ -60,12 +86,21 @@
                     };
                 </script>
 
-                <button id="buttonShowOneCurrency">Zeige mir eine Währung</button>
+            <span class="inputElement">
+
+                <button id="buttonShowOneCurrency">Suche ein eine Währung über ID</button>
                 <input id="CurrencyId" type="text" />
+                <label id=anzeigeCurr></label>
+
+            </span>
                 <script>
                     document.getElementById("buttonShowOneCurrency").onclick = function () {
                         let id = document.getElementById("CurrencyId").value;
-                        window.location.href = "https://localhost:8443/MyWealth/api/Currencies/" + id;
+                        if(id===""){
+                            document.getElementById("anzeigeCurr").innerHTML="Bitte zuerst eine ID eingeben";
+                        } else {
+                            window.location.href = "https://localhost:8443/MyWealth/api/Currencies/" + id;
+                        }
                     };
                 </script>
 
@@ -87,15 +122,21 @@
                     };
                 </script>
 
-                <button id="buttonShowOnePossession">Zeige mir ein Besiztum</button>
-                <input id="PossessionId" type="text" />
-                <script>
-                    document.getElementById("buttonShowOnePossession").onclick = function () {
-                        let id = document.getElementById("PossessionId").value;
-                        window.location.href = "https://localhost:8443/MyWealth/api/Possessions/" + id;
-                    };
-                </script>
-
+                <span class="inputElement">
+                    <button id="buttonShowOnePossession">Suche ein einen Besitztum über ID</button>
+                    <input id="PossessionId" type="text" />
+                    <label id=anzeigePos></label>
+                    <script>
+                        document.getElementById("buttonShowOnePossession").onclick = function () {
+                            let id = document.getElementById("PossessionId").value;
+                            if(id===""){
+                                document.getElementById("anzeigePos").innerHTML="Bitte zuerst eine ID eingeben";
+                            } else {
+                                window.location.href = "https://localhost:8443/MyWealth/api/Possessions/" + id;
+                            }
+                          };
+                          </script>
+                </span>
             </div>
         </div>
     </body>

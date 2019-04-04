@@ -38,4 +38,10 @@ public class PossessionTypeBean extends EntityBean<PossessionType, Long> {
                 .getResultList();
     }
     
+     public List<PossessionType> findByName(String name) {
+        return this.em.createQuery("SELECT p FROM PossessionType p wHERE p.name = :name")
+                .setParameter("name", name)
+                .getResultList();
+    }
+    
 }

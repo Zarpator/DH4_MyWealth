@@ -3,7 +3,7 @@ html {
     font-family: sans-serif;
     font-size: 12pt;
 
-    background-image: url(https://picsum.photos/1080/720/?random);
+    background-image: url(https://picsum.photos/800/600/?random);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -16,7 +16,17 @@ html {
 
   margin: 1em;
   width: 100%;
-  max-width: 50em;
+  max-width: 55em;
+}
+
+.inputElement{
+  padding-left: 2em;
+
+}
+.inputElementNewLine{
+
+  padding-top: 2em;
+
 }
 
 html, body {

@@ -20,7 +20,6 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("api")
 public class MyWealthRestAPI extends Application {
 
-    
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet<>();
@@ -28,9 +27,9 @@ public class MyWealthRestAPI extends Application {
         // Hier für jede Webservice-Klasse eine Zeile hinzufügen
         resources.add(PossessionTypeResource.class);
         resources.add(CurrencyResource.class);
+        resources.add(PossessionResource.class);
 
         return resources;
     }
-
 
 }

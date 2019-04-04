@@ -53,17 +53,17 @@
                         <tr>
                             <td>
                                 <a href="<c:url value="/app/possessions/possession/${possession.id}"/>">
-                                    <c:out value="${possession.name}"/>
+                                    <c:out value="${possession.getName()}"/>
                                 </a>
                             </td>
                             <td>
-                                <c:out value="${possession.type.name}"/>
+                                <c:out value="${possession.getTyp()}"/>
                             </td>
                             <td>
-                                <c:out value="${possession.valueInEuro}"/>
+                                <c:out value="${possession.getValueInEuro()}"/>
                             </td>
                             <td>
-                                <c:out value="${possession.comments}"/>
+                                <c:out value="${possession.getComments()}"/>
                             </td>
                         </tr>
                     </c:forEach>

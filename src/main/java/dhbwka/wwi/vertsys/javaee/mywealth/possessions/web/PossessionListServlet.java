@@ -14,7 +14,9 @@ import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jspclasses.PossessionForListJSP;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -53,12 +55,33 @@ public class PossessionListServlet extends HttpServlet{
         // set current user
         User owner = userBean.getCurrentUser();
         
-        List<Possession> possessions = possessionBean.search(owner, type);
+        List<Possession> possessionsFromBean = possessionBean.search(owner, type);
+        List<PossessionForListJSP> possessions = this.getPossessionsForJSP(possessionsFromBean);
         
         //Possessions an den Request anhängen
         request.setAttribute("possessions", possessions);
 
         // Request an die JSP weiterleiten
         request.getRequestDispatcher("/WEB-INF/possessions/possession_list.jsp").forward(request, response);
+    }
+    
+    private List<PossessionForListJSP> getPossessionsForJSP(List<Possession> possessionsFromEJB){
+        List<PossessionForListJSP> possessions = new ArrayList();
+        
+        for (Possession possessionFromEJB : possessionsFromEJB){
+            PossessionForListJSP possession = new PossessionForListJSP();
+            
+            possession.setName(possessionFromEJB.getName());
+            possession.setId(possessionFromEJB.getId());
+            possession.setTyp(possessionFromEJB.getType().getName());
+            possession.setValueInEuro(possessionFromEJB.getValueInEuro());
+            possession.setComments(possessionFromEJB.getComments());
+            
+            possession.setCurrencyName(possessionFromEJB.getType().getCurrency().getName());
+            
+            possessions.add(possession);
+        }
+        
+        return possessions;
     }
 }

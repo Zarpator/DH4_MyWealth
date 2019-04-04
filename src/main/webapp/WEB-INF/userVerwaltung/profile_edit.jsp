@@ -46,9 +46,10 @@
                        
                     </label>
                    <div>
-                        <label type="text" name="usedata_username" class="textFormat">
+                        <label type="text" name="label_username" class="textFormat">
                             ${userdata_form.values["username"][0]}
                         </label>
+                        <input id="username_field" name="username" value="${userdata_form.values["username"][0]}" type="hidden" />
                     </div>    
                   </div> 
                   
@@ -76,7 +77,7 @@
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
                         <button type="submit" name="action" value="changeData" class="icon-pencil">
-                            Editieren
+                            Änderungen speichern
                         </button>
                     </div>
                     </div>
@@ -125,7 +126,7 @@
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
                         <button type="submit" name="action" value="changePassword" class="icon-pencil">
-                            Editieren
+                            neues Passwort sichern
                         </button>
                     </div>
                     </div>

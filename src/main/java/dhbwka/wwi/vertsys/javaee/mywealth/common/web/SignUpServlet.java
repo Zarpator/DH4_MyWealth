@@ -92,11 +92,16 @@ public class SignUpServlet extends HttpServlet {
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
+            
+            request.login(username, password1);
+            
             Currency currency = new Currency("Euro", 1.0, this.userBean.getCurrentUser());
             this.currencyBean.saveNew(currency);
             
-            request.login(username, password1);
             response.sendRedirect(WebUtils.appUrl(request, "/app/dashboard/"));
+            
+            
+            
         } else {
             // Fehler: Formular erneut anzeigen
             FormValues formValues = new FormValues();

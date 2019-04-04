@@ -117,7 +117,7 @@ public class PossessionEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         } else {
-            errors.add("Das Besitztum muss einen Typ haben");
+            errors.add("Das Besitztum muss einen AnlageTyp haben");
         }
         
         // Wert prüfen und hinzufügen
@@ -144,8 +144,9 @@ public class PossessionEditServlet extends HttpServlet {
         // Comments hinzufügen
         possession.setComments(possComments);
 
-        this.validationBean.validate(possession, errors);
-
+        if(errors.isEmpty()){
+            this.validationBean.validate(possession, errors);
+        }
         // Datensatz speichern
         if (errors.isEmpty()) {
             this.possessionBean.update(possession);

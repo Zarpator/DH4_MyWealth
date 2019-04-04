@@ -83,6 +83,7 @@ public class PossessionListServlet extends HttpServlet{
             possession.setComments(possessionFromEJB.getComments());
             
             possession.setCurrencyName(possessionFromEJB.getType().getCurrency().getName());
+            
             Currency currency = currencyBean.findById(possessionFromEJB.getType().getCurrency().getId());
             possession.setVaueInMyCurrency(currency.calculateValue(possessionFromEJB.getValueInEuro()));
             

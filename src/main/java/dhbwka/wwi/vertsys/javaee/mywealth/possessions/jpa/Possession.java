@@ -44,7 +44,7 @@ public class Possession {
 
     
     @NotNull(message = "Das Besitztum muss einen Wert haben.")
-    private int valueInEuro;
+    private double valueInEuro;
 
     private String comments;
 
@@ -97,11 +97,11 @@ public class Possession {
         this.type = type;
     }
 
-    public int getValueInEuro() {
+    public double getValueInEuro() {
         return valueInEuro;
     }
 
-    public void setValueInEuro(int valueInEuro) {
+    public void setValueInEuro(double valueInEuro) {
         this.valueInEuro = valueInEuro;
     }
 

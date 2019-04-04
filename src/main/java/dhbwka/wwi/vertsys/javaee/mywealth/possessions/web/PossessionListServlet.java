@@ -70,6 +70,7 @@ public class PossessionListServlet extends HttpServlet{
         request.getRequestDispatcher("/WEB-INF/possessions/possession_list.jsp").forward(request, response);
     }
     
+    // calculate and get all values needed for the list jsp
     private List<PossessionForListJSP> getPossessionsForJSP(List<Possession> possessionsFromEJB){
         List<PossessionForListJSP> possessions = new ArrayList();
         

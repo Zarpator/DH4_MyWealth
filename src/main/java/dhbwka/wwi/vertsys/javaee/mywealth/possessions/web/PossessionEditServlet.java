@@ -109,14 +109,18 @@ public class PossessionEditServlet extends HttpServlet {
 
         Possession possession = this.getPossession(request, errors);
 
+        // Typ prüfen und hinzufügen
         if (possType != null && !possType.trim().isEmpty()) {
             try {
                 possession.setType(this.possessionTypeBean.findById(Long.parseLong(possType)));
             } catch (NumberFormatException ex) {
                 // Ungültige oder keine ID mitgegeben
             }
+        } else {
+            errors.add("Das Besitztum muss einen Typ haben");
         }
-
+        
+        // Wert prüfen und hinzufügen
         if (possValue != null || !possValue.isEmpty()) {
             try {
                 double value = Double.parseDouble(possValue);
@@ -129,13 +133,15 @@ public class PossessionEditServlet extends HttpServlet {
         } else {
             errors.add("Das Besitztum muss einen Wert haben.");
         }
-
+        
+        // Name prüfen und hinzufügen
         if (possName != null && !possName.isEmpty()) {
             possession.setName(possName);
         } else {
             errors.add("Das Besitztum muss einen Namen haben");
         }
 
+        // Comments hinzufügen
         possession.setComments(possComments);
 
         this.validationBean.validate(possession, errors);

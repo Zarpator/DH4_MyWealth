@@ -63,7 +63,7 @@
                     </select>
                 </div>
 
-                <label for="poss_value">Wert:</label>
+                <label for="poss_value">Wert (in der Währung des Typs):</label>
                 <div class="side-by-side">
                     <input type="text" name="poss_value" value="${possession.getValueInEuro()}">
                 </div>

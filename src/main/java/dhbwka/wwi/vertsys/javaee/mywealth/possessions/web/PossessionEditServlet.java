@@ -13,9 +13,11 @@ import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.FormValues;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.web.WebUtils;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.CurrencyBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.PossessionTypeBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Possession;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.PossessionType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,9 @@ public class PossessionEditServlet extends HttpServlet {
 
     @EJB
     private PossessionTypeBean possessionTypeBean;
+    
+    @EJB
+    private CurrencyBean currencyBean;
 
     @EJB
     private UserBean userBean;
@@ -112,6 +117,7 @@ public class PossessionEditServlet extends HttpServlet {
         }
 
         if (possValue != null || !possValue.isEmpty()) {
+            Currency currency = currencyBean.findById(possession.getType().getCurrency().getId());
             possession.setValueInEuro(Integer.parseInt(possValue));
         } else {
             errors.add("Das Besitztum muss einen Wert haben.");

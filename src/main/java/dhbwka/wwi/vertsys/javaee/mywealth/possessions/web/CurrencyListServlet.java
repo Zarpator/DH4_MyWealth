@@ -60,7 +60,7 @@ public class CurrencyListServlet extends HttpServlet {
 
         // Alle vorhandenen Anlagetypen ermitteln
         request.setAttribute("possessiontypes", this.possessiontypeBean.findAllByUser(this.userBean.getCurrentUser()));
-        request.setAttribute("currencies", this.currencyBean.findAll());
+        request.setAttribute("currencies", this.currencyBean.findAllByUser(this.userBean.getCurrentUser()));
 
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/possessions/currency_list.jsp");

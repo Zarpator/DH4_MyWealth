@@ -12,6 +12,8 @@ package dhbwka.wwi.vertsys.javaee.mywealth.common.web;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.mywealth.common.jpa.User;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.ejb.CurrencyBean;
+import dhbwka.wwi.vertsys.javaee.mywealth.possessions.jpa.Currency;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -35,6 +37,9 @@ public class SignUpServlet extends HttpServlet {
             
     @EJB
     UserBean userBean;
+    
+    @EJB
+    CurrencyBean currencyBean;
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -87,8 +92,16 @@ public class SignUpServlet extends HttpServlet {
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
+            
             request.login(username, password1);
+            
+            Currency currency = new Currency("Euro", 1.0, this.userBean.getCurrentUser());
+            this.currencyBean.saveNew(currency);
+            
             response.sendRedirect(WebUtils.appUrl(request, "/app/dashboard/"));
+            
+            
+            
         } else {
             // Fehler: Formular erneut anzeigen
             FormValues formValues = new FormValues();

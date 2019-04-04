@@ -103,14 +103,19 @@ public class CurrencyListServlet extends HttpServlet {
     private void createCurrency(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        List<String> errors = new ArrayList();
         // Formulareingaben prüfen
         String name = request.getParameter("name");
         String conversionRateString = request.getParameter("conversionRate");
-        double conversionRate = Double.parseDouble(conversionRateString);
-        
+        double conversionRate = 0;
+        try{
+            conversionRate = Double.parseDouble(conversionRateString);
+        }catch(Exception e){
+            errors.add("Bitte geben Sie als Umrechungsfaktor eine Kommazahl mit '.' ein");
+        }
         Currency currency = new Currency(name, conversionRate, this.userBean.getCurrentUser());
         
-        List<String> errors = this.validationBean.validate(currency);
+        errors.addAll(this.validationBean.validate(currency));
 
         // Neue Währung anlegen
         if (errors.isEmpty()) {

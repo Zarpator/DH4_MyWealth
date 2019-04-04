@@ -13,6 +13,10 @@ Die MyWealth Webapp dient allen Menschen dazu, ihren Reichtum in Form von Sachan
 
 Der Nutzer kann nun über das Dashboard seine Besitztümer miteinander vergleichen. Die einzelnen Dashboard-Kacheln repräsentieren Anlagetypen, und agieren als Filteroption. Über eine Kachel gelangt der Nutzer auf die jeweilige Liste, in der seine Besitztümer aufgelistet sind – und diese Liste ist je nach Kachel nach einem bestimmten Anlagetyp gefiltert. Über die Kachel „Alle“ sieht der Nutzer natürlich ganz ungefiltert sein gesamtes Vermögen. Die Besitztümer werden über einen Umrechnungsfaktor, den man bei der Währungserstellung angibt, alle auf eine Einheit (Euro) umgerechnet, sodass der Nutzer seine Besitztümer natürlich Länder und Währungsübergreifend miteinander vergleichen kann. Die Besitztümer können selbstverständlich bearbeitet und gelöscht werden, denn sie bilden das Herz der MyWealth-Verwaltungsanwendung.
 
+### Die Client Anwendung: 
+
+Die MyWealth-Webservice-Testmaschine ist eine simple Client-Anwendung. Nachdem jegliche Versuche fehlschlugen, den über Authentifizierungsmechanismen abgesicherte Webservice zu konsumieren, haben wir nun doch eine Lösung gefunden. Um den Webservice dennoch mit einer FORM-Authentifizierung abzusichern haben wir uns für die spartanischste Variante aller Client-Anwendungen entschieden, entspricht aber dennoch allen gestellten Anforderungen an die Funktionen der Anwendung. Auf einer HTML Seite werden dem Nutzer verschiedene Selektions-Möglichkeiten des Rest-Services gegeben. Wird eine Selektions-Variante gewählt, werden die Daten des Webservices im Browser dargestellt. Über Vorwärts und Rückwärts-Navigation im Browser bleibt der Nutzer dennoch im Kontext der Client-Anwendung. Die Anwendung liegt im Ordner „ClientAnwendung“ – probier es einfach mal aus.
+
 
 Verwendete Technologien
 -----------------------
